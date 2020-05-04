@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-
-[System.Serializable]
-public class FloatReference : ReferenceGenericVariable<float,FloatVariable>
+﻿namespace GTVariable
 {
+    [System.Serializable]
+    public class FloatReference : ReferenceVariable<float, FloatVariable>
+    {
 
+    }
 }

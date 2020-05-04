@@ -1,5 +1,8 @@
-﻿[System.Serializable]
-public class IntReference : ReferenceGenericVariable<int, IntVariable> 
+﻿namespace GTVariable
 {
+    [System.Serializable]
+    public class IntReference : ReferenceVariable<int, IntVariable>
+    {
 
+    }
 }

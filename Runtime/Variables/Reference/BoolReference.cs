@@ -1,6 +1,8 @@
-﻿
-[System.Serializable]
-public class BoolReference : ReferenceGenericVariable<bool, BoolVariable>
+﻿namespace GTVariable
 {
- 
+    [System.Serializable]
+    public class BoolReference : ReferenceVariable<bool, BoolVariable>
+    {
+
+    }
 }

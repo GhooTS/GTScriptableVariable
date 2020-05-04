@@ -1,32 +1,35 @@
-﻿[UnityEngine.CreateAssetMenu(menuName = "Variables/Int")]
-public class IntVariable : GenericVariable<int>
+﻿namespace GTVariable
 {
-    public bool resetValueOnEnable;
-
-    private void OnEnable()
+    [UnityEngine.CreateAssetMenu(menuName = "Variables/Int")]
+    public class IntVariable : Variable<int>
     {
-        if (resetValueOnEnable)
-        {
-            value = 0;
-        }
-    }
+        public bool resetValueOnEnable;
 
-    public void Increament(bool sendChanageEvent = false)
-    {
-        value++;
-        if (sendChanageEvent)
+        private void OnEnable()
         {
-            onValueChange?.Invoke();
+            if (resetValueOnEnable)
+            {
+                value = 0;
+            }
         }
-    }
 
-    public void Decreament(bool sendChanageEvent = false)
-    {
-        value--;
-        if (sendChanageEvent)
+        public void Increament(bool sendChanageEvent = false)
         {
-            onValueChange?.Invoke();
+            value++;
+            if (sendChanageEvent)
+            {
+                onValueChange?.Invoke();
+            }
         }
-    }
 
+        public void Decreament(bool sendChanageEvent = false)
+        {
+            value--;
+            if (sendChanageEvent)
+            {
+                onValueChange?.Invoke();
+            }
+        }
+
+    }
 }

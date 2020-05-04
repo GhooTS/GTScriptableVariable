@@ -1,32 +1,34 @@
 ﻿using UnityEngine;
 
-
-public class TextFloatValueUpdater : TextValueUpdater<FloatVariable, float>
+namespace GTVariable
 {
-    public bool round;
-
-    public override void UpdateValue()
+    public class TextFloatValueUpdater : TextValueUpdater<FloatVariable, float>
     {
-        string str = "";
+        public bool round;
 
-        if (prefix.Length != 0)
+        public override void UpdateValue()
         {
-            str = prefix;
-        }
+            string str = "";
 
-        if (round)
-        {
-            str += Mathf.FloorToInt(value.value);
-        }
-        else
-        {
-            str += value.value;
-        }
-        if (affix.Length != 0)
-        {
-            str += affix;
-        }
+            if (prefix.Length != 0)
+            {
+                str = prefix;
+            }
 
-        textControl.text = str;
+            if (round)
+            {
+                str += Mathf.FloorToInt(value.value);
+            }
+            else
+            {
+                str += value.value;
+            }
+            if (affix.Length != 0)
+            {
+                str += affix;
+            }
+
+            textControl.text = str;
+        }
     }
 }

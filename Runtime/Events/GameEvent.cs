@@ -13,27 +13,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "GameEvents/Event")]
-public class GameEvent : ScriptableObject
+namespace GTVariable
 {
-    public List<GameEventListener> EventListners { get { return eventListners; } }
-    private readonly List<GameEventListener> eventListners = new List<GameEventListener>();
-
-    public void Raise()
+    [CreateAssetMenu(menuName = "GameEvents/Event")]
+    public class GameEvent : ScriptableObject
     {
-        for (int i = eventListners.Count - 1; i >= 0; i--)
+        public List<GameEventListener> EventListners { get { return eventListners; } }
+        private readonly List<GameEventListener> eventListners = new List<GameEventListener>();
+
+        public void Raise()
         {
-            eventListners[i].OnEventRised();
+            for (int i = eventListners.Count - 1; i >= 0; i--)
+            {
+                eventListners[i].OnEventRised();
+            }
         }
-    }
 
-    public void RegisterListener(GameEventListener listner)
-    {
-        eventListners.Add(listner);
-    }
+        public void RegisterListener(GameEventListener listner)
+        {
+            eventListners.Add(listner);
+        }
 
-    public void UnRegisterListener(GameEventListener listner)
-    {
-        eventListners.Remove(listner);
+        public void UnRegisterListener(GameEventListener listner)
+        {
+            eventListners.Remove(listner);
+        }
     }
 }

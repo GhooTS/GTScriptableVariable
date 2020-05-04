@@ -1,5 +1,8 @@
-﻿[UnityEngine.CreateAssetMenu(menuName = "Variables/String")]
-public class StringVariable : GenericVariable<string> 
+﻿namespace GTVariable
 {
+    [UnityEngine.CreateAssetMenu(menuName = "Variables/String")]
+    public class StringVariable : Variable<string>
+    {
 
+    }
 }

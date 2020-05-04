@@ -1,5 +1,8 @@
-﻿[System.Serializable]
-public class StringReference : ReferenceGenericVariable<string,StringVariable>
+﻿namespace GTVariable
 {
+    [System.Serializable]
+    public class StringReference : ReferenceVariable<string, StringVariable>
+    {
 
+    }
 }

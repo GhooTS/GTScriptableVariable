@@ -1,7 +1,10 @@
 ﻿using UnityEditor;
 
-[CustomPropertyDrawer(typeof(FloatReference))]
-public class FloatVariablePropertyDrawer : GenericVariablePropertyDrawer
+namespace GTVariable.Editor
 {
-    
+    [CustomPropertyDrawer(typeof(FloatReference))]
+    public class FloatVariablePropertyDrawer : VariablePropertyDrawer
+    {
+
+    }
 }

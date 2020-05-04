@@ -14,34 +14,36 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-
-public class GameEventListener : MonoBehaviour
+namespace GTVariable
 {
+    public class GameEventListener : MonoBehaviour
+    {
 #if UNITY_EDITOR
-    new public string name;
+        new public string name;
 #endif
-    public GameEvent[] gameEvents;
-    public UnityEvent Response;
+        public GameEvent[] gameEvents;
+        public UnityEvent Response;
 
-    public void OnEventRised()
-    {
-        Response?.Invoke();
-    }
-
-    private void OnEnable()
-    {
-        foreach (var gameEvent in gameEvents)
+        public void OnEventRised()
         {
-            gameEvent.RegisterListener(this);
+            Response?.Invoke();
         }
-        
-    }
 
-    private void OnDisable()
-    {
-        foreach (var gameEvent in gameEvents)
+        private void OnEnable()
         {
-            gameEvent.UnRegisterListener(this);
+            foreach (var gameEvent in gameEvents)
+            {
+                gameEvent.RegisterListener(this);
+            }
+
+        }
+
+        private void OnDisable()
+        {
+            foreach (var gameEvent in gameEvents)
+            {
+                gameEvent.UnRegisterListener(this);
+            }
         }
     }
 }

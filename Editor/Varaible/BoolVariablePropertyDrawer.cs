@@ -1,8 +1,11 @@
 ﻿using UnityEditor;
 
-
-[CustomPropertyDrawer(typeof(BoolReference))]
-public class BoolVariablePropertyDrawer : GenericVariablePropertyDrawer
+namespace GTVariable.Editor
 {
 
+    [CustomPropertyDrawer(typeof(BoolReference))]
+    public class BoolVariablePropertyDrawer : VariablePropertyDrawer
+    {
+
+    }
 }

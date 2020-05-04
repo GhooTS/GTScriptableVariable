@@ -1,7 +1,10 @@
 ﻿using UnityEditor;
 
-[CustomPropertyDrawer(typeof(StringReference))]
-public class StringVariablePropertyDrawer : GenericVariablePropertyDrawer
+namespace GTVariable.Editor
 {
+    [CustomPropertyDrawer(typeof(StringReference))]
+    public class StringVariablePropertyDrawer : VariablePropertyDrawer
+    {
 
+    }
 }

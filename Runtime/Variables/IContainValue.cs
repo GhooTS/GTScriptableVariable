@@ -1,5 +1,8 @@
-﻿public interface IContainValue<T>
+﻿namespace GTVariable
 {
-    T GetValue();
-    void SetValue(T value);
+    public interface IContainValue<T>
+    {
+        T GetValue();
+        void SetValue(T value);
+    }
 }

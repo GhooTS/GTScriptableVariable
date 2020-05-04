@@ -1,24 +1,27 @@
-﻿public class TextBoolValueUpdater : TextValueUpdater<BoolVariable, bool>
+﻿namespace GTVariable
 {
-    public string trueValue;
-    public string falseValue;
-
-    public override void UpdateValue()
+    public class TextBoolValueUpdater : TextValueUpdater<BoolVariable, bool>
     {
-        string str = "";
+        public string trueValue;
+        public string falseValue;
 
-        if (prefix.Length != 0)
+        public override void UpdateValue()
         {
-            str = prefix;
+            string str = "";
+
+            if (prefix.Length != 0)
+            {
+                str = prefix;
+            }
+
+            str += value.value ? trueValue : falseValue;
+
+            if (affix.Length != 0)
+            {
+                str += affix;
+            }
+
+            textControl.text = str;
         }
-
-        str += value.value ? trueValue : falseValue;
-
-        if (affix.Length != 0)
-        {
-            str += affix;
-        }
-
-        textControl.text = str;
     }
 }

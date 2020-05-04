@@ -1,45 +1,47 @@
-﻿using UnityEngine;
-using TMPro;
-using System.Text;
+﻿using TMPro;
+using UnityEngine;
 
-public class TextValueUpdater<T,N> : MonoBehaviour 
-    where T : GenericVariable<N>
+namespace GTVariable
 {
-    public string prefix;
-    public string affix;
-    public T value;
-    public TextMeshProUGUI textControl;
-    public bool updateOnEnable;
-
-    private void OnEnable()
+    public class TextValueUpdater<T, N> : MonoBehaviour
+        where T : Variable<N>
     {
-        OnEnableBase();
-    }
+        public string prefix;
+        public string affix;
+        public T value;
+        public TextMeshProUGUI textControl;
+        public bool updateOnEnable;
 
-    public virtual void UpdateValue()
-    {
-        string str = "";
-
-        if (prefix.Length != 0)
+        private void OnEnable()
         {
-            str = prefix;
+            OnEnableBase();
         }
 
-        str += $"{value.value}";
-
-        if(affix.Length != 0)
+        public virtual void UpdateValue()
         {
-            str += affix;
+            string str = "";
+
+            if (prefix.Length != 0)
+            {
+                str = prefix;
+            }
+
+            str += $"{value.value}";
+
+            if (affix.Length != 0)
+            {
+                str += affix;
+            }
+
+            textControl.text = str;
         }
 
-        textControl.text = str;
-    }
-
-    protected void OnEnableBase()
-    {
-        if (updateOnEnable)
+        protected void OnEnableBase()
         {
-            UpdateValue();
+            if (updateOnEnable)
+            {
+                UpdateValue();
+            }
         }
     }
 }

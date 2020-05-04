@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(menuName = "Variables/Color")]
-public class ColorVariable : GenericVariable<Color>
+namespace GTVariable
 {
+    [CreateAssetMenu(menuName = "Variables/Color")]
+    public class ColorVariable : Variable<Color>
+    {
 
+    }
 }

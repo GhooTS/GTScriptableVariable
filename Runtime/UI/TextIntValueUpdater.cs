@@ -1,3 +1,6 @@
-﻿public class TextIntValueUpdater : TextValueUpdater<IntVariable,int>
+﻿namespace GTVariable
 {
+    public class TextIntValueUpdater : TextValueUpdater<IntVariable, int>
+    {
+    }
 }
