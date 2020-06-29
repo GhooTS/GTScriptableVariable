@@ -12,12 +12,18 @@ using UnityEngine;
 
 namespace GTVariable.Editor
 {
-
     public class ReferenceVariablePropertyDrawer : PropertyDrawer
     {
 
         /// <summary> Cached style to use to draw the popup button. </summary>
         private GUIStyle popupStyle;
+        private SerializedProperty value;
+        private SerializedProperty useConstant;
+
+        public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
+        {
+            return  useConstant == null || useConstant.boolValue ? EditorGUI.GetPropertyHeight(property) : EditorGUI.GetPropertyHeight(value);
+        }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
@@ -35,9 +41,8 @@ namespace GTVariable.Editor
             EditorGUI.BeginChangeCheck();
 
             // Get properties
-            SerializedProperty useConstant = property.FindPropertyRelative("useConstant");
-            SerializedProperty constantValue = property.FindPropertyRelative("constantValue");
-            SerializedProperty variable = property.FindPropertyRelative("variable");
+            useConstant = property.FindPropertyRelative("useConstant");
+            value = property.FindPropertyRelative(useConstant.boolValue ? "constantValue" : "variable");
 
 
             // Calculate rect for configuration button
@@ -73,10 +78,8 @@ namespace GTVariable.Editor
                 menu.DropDown(buttonRect);
             }
 
-            
-            EditorGUI.PropertyField(position,
-                                    useConstant.boolValue ? constantValue : variable,
-                                    GUIContent.none);
+
+            EditorGUI.PropertyField(position, value, GUIContent.none);
            
 
 
