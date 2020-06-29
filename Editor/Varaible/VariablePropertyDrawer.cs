@@ -49,25 +49,21 @@ namespace GTVariable.Editor
                 }
                 valueProp = serializedObject.FindProperty("value");
             }
-            else if(property.objectReferenceValue == null)
+            else
             {
                 serializedObject = null;
                 valueProp = null;
+                return;
             }
             
-            if(serializedObject != null)
-            {
-                serializedObject.Update();
-            }
+
+            serializedObject.Update();
             
-            if (valueProp != null)
+            EditorGUI.BeginChangeCheck();
+            EditorGUI.PropertyField(valuePosition, valueProp,GUIContent.none);
+            if (EditorGUI.EndChangeCheck())
             {
-                EditorGUI.BeginChangeCheck();
-                EditorGUI.PropertyField(valuePosition, valueProp,GUIContent.none);
-                if (EditorGUI.EndChangeCheck())
-                {
-                    serializedObject.ApplyModifiedProperties();
-                }
+                serializedObject.ApplyModifiedProperties();
             }
             
         }
