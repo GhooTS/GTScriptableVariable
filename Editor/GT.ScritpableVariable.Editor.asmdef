@@ -1,10 +1,11 @@
 {
     "name": "GT.ScritpableVariable.Editor",
     "references": [
-        "GUID:4020d8ef487887c42bd1c7979f05aa41",
-        "GUID:a2a2939d05a8d914ba29bb0d357ff437"
+        "GUID:23588e93bb895c84fb8cbe0b95ce3c77"
     ],
-    "includePlatforms": [],
+    "includePlatforms": [
+        "Editor"
+    ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": false,

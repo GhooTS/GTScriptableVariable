@@ -56,12 +56,13 @@ namespace GTVariable.Editor
                                                                          useConstant.boolValue = false;
                                                                          property.serializedObject.ApplyModifiedProperties();
                                                                      });
+#if GT_ATTRIBUTES
             if (useConstant.boolValue == false)
             {
                 menu.AddSeparator(string.Empty);
                 menu.AddItem(new GUIContent("Quick View"), false, () => { GTQuickView.Editor.QuickView.Show(variable); });
             }
-
+#endif
             int indent = EditorGUI.indentLevel;
             EditorGUI.indentLevel = 0;
 
