@@ -12,7 +12,8 @@ using UnityEngine;
 
 namespace GTVariable.Editor
 {
-    public class VariablePropertyDrawer : PropertyDrawer
+
+    public class ReferenceVariablePropertyDrawer : PropertyDrawer
     {
 
         /// <summary> Cached style to use to draw the popup button. </summary>
