@@ -1,7 +1,7 @@
 {
     "name": "GT.ScritpableVariable.Editor",
     "references": [
-        "GUID:23588e93bb895c84fb8cbe0b95ce3c77"
+        "GT.ScriptableVariable"
     ],
     "includePlatforms": [
         "Editor"
