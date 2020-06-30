@@ -1,6 +1,6 @@
 ﻿namespace GTVariable
 {
-    [UnityEngine.CreateAssetMenu(menuName = "Variables/String")]
+    [UnityEngine.CreateAssetMenu(menuName = "ScriptableVars/Vars/String")]
     public class StringVariable : Variable<string>
     {
 

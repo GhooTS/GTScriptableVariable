@@ -15,7 +15,7 @@ using UnityEngine;
 
 namespace GTVariable
 {
-    [CreateAssetMenu(menuName = "GameEvents/Event")]
+    [CreateAssetMenu(menuName = "ScriptableVars/Events/Event")]
     public class GameEvent : ScriptableObject
     {
         public List<GameEventListener> EventListners { get { return eventListners; } }

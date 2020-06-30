@@ -1,6 +1,6 @@
 ﻿namespace GTVariable
 {
-    [UnityEngine.CreateAssetMenu(menuName = "Variables/Int")]
+    [UnityEngine.CreateAssetMenu(menuName = "ScriptableVars/Vars/Int")]
     public class IntVariable : Variable<int>
     {
         public bool resetValueOnEnable;

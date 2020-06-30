@@ -2,7 +2,7 @@
 
 namespace GTVariable
 {
-    [CreateAssetMenu(menuName = "Variable/Gradient")]
+    [CreateAssetMenu(menuName = "ScriptableVars/Vars/Gradient")]
     public class GradientVariable : Variable<Gradient>
     {
 

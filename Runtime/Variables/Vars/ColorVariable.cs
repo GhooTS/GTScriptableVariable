@@ -2,7 +2,7 @@
 
 namespace GTVariable
 {
-    [CreateAssetMenu(menuName = "Variables/Color")]
+    [CreateAssetMenu(menuName = "ScriptableVars/Vars/Color")]
     public class ColorVariable : Variable<Color>
     {
 
