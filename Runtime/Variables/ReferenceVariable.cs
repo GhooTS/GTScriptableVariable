@@ -8,14 +8,14 @@ using UnityEngine;
 namespace GTVariable
 {
     [System.Serializable]
-    public class ReferenceVariable<T, ScriptableObject> where ScriptableObject : IContainValue<T>
+    public class ReferenceVariable<T, VariableType> where VariableType : Variable<T>
     {
         [SerializeField]
         private bool useConstant = true;
         [SerializeField]
         private T constantValue;
         [SerializeField]
-        private ScriptableObject variable;
+        private VariableType variable;
 
         public T Value
         {

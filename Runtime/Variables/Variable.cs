@@ -9,7 +9,7 @@ using UnityEngine.Events;
 namespace GTVariable
 {
     [System.Serializable]
-    public class Variable<T> : ScriptableObject, IContainValue<T>
+    public class Variable<T> : ScriptableObject
     {
         public T value;
         public UnityEvent onValueChange;
