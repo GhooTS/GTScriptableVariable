@@ -12,7 +12,6 @@ namespace GTVariable
     public class Variable<T> : ScriptableObject
     {
         public T value;
-        public UnityEvent onValueChange;
 
 
         public T GetValue()
@@ -20,15 +19,9 @@ namespace GTVariable
             return value;
         }
 
-        public void SetValue(T value)
+        public virtual void SetValue(T value)
         {
             this.value = value;
-        }
-
-        public void SetValueWithEvent(T value)
-        {
-            this.value = value;
-            onValueChange?.Invoke();
         }
 
         public static implicit operator T(Variable<T> genericVariable)

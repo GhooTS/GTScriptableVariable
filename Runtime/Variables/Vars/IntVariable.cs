@@ -13,22 +13,14 @@
             }
         }
 
-        public void Increament(bool sendChanageEvent = false)
+        public void Increament()
         {
-            value++;
-            if (sendChanageEvent)
-            {
-                onValueChange?.Invoke();
-            }
+            SetValue(value + 1);
         }
 
-        public void Decreament(bool sendChanageEvent = false)
+        public void Decreament()
         {
-            value--;
-            if (sendChanageEvent)
-            {
-                onValueChange?.Invoke();
-            }
+            SetValue(value - 1);
         }
 
     }
