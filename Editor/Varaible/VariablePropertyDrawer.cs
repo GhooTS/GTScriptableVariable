@@ -23,16 +23,18 @@ namespace GTVariable.Editor
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
-            return EditorGUI.GetPropertyHeight(property) + (valueProp != null ? EditorGUI.GetPropertyHeight(valueProp) : 0f);
+            return EditorGUI.GetPropertyHeight(property);
         }
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             var propertyHeight = EditorGUI.GetPropertyHeight(property);
-            var valuePosition = new Rect(position.x, position.y + propertyHeight, position.width, position.height - propertyHeight);
-            position.height -= valuePosition.height;
+            
             EditorGUI.BeginChangeCheck();
-            EditorGUI.PropertyField(position, property,label);
+            position = EditorGUI.PrefixLabel(position,label);
+            var valuePosition = new Rect(position.xMax - 60, position.y,60, position.height);
+            position.width -= 65;
+            EditorGUI.PropertyField(position, property,GUIContent.none);
             if (EditorGUI.EndChangeCheck())
             {
                 if (property.objectReferenceValue != null)
