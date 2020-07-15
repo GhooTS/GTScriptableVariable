@@ -35,5 +35,10 @@ namespace GTVariable
                 }
             }
         }
+
+        public static implicit operator T(ReferenceVariable<T, VariableType> genericVariable)
+        {
+            return genericVariable.Value;
+        }
     }
 }
