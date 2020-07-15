@@ -3,7 +3,7 @@
 namespace GTVariable.Editor
 {
     [CustomEditor(typeof(GameEventListener))]
-    public class GameEventListenerEditor : EditorGroup<GameEventListener>
+    public class GameEventListenerEditor : EditorGroup<Listener>
     {
 
         private void OnEnable()
@@ -16,7 +16,7 @@ namespace GTVariable.Editor
             DetachComponents();
         }
 
-        protected override string GetComponentName(GameEventListener component)
+        protected override string GetComponentName(Listener component)
         {
             return component.name;
         }
