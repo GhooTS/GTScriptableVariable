@@ -104,7 +104,7 @@ namespace GTVariable.Editor
             bool enable = GUI.enabled;
 
             GUI.enabled = EditorApplication.isPlaying;
-            if (GUILayout.Button("Fire"))
+            if (GUILayout.Button("Raise"))
             {
                 gameEvent.Raise();
             }
