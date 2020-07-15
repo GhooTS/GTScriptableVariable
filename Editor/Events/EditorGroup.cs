@@ -46,8 +46,11 @@ namespace GTVariable.Editor
         protected void Init()
         {
             TargetComponent = target as T;
-            gameObject = TargetComponent.gameObject;
-            AttachComponents();
+            if (TargetComponent != null)
+            {
+                gameObject = TargetComponent.gameObject;
+                AttachComponents();
+            }
         }
 
         protected void AttachComponents()
