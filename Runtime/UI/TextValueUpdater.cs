@@ -17,7 +17,7 @@ namespace GTVariable
             OnEnableBase();
         }
 
-        public virtual void UpdateValue()
+        public void UpdateValue()
         {
             string str = "";
 
@@ -26,7 +26,7 @@ namespace GTVariable
                 str = prefix;
             }
 
-            str += $"{value.value}";
+            str += GetValue();
 
             if (affix.Length != 0)
             {
@@ -34,6 +34,11 @@ namespace GTVariable
             }
 
             textControl.text = str;
+        }
+
+        protected virtual string GetValue()
+        {
+            return $"{value.value}";
         }
 
         protected void OnEnableBase()
