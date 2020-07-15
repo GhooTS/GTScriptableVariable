@@ -1,20 +1,11 @@
 ﻿
-// ----------------------------------------------------------------------------
-// Unite 2017 - Game Architecture with Scriptable Objects
-//
-// Author: Ryan Hipple
-// Date:   10/04/17
-// ----------------------------------------------------------------------------
-
-//Modify by Christopher Biernat
-//Changes:
-//EventListners property has been added
 
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace GTVariable
 {
+
     [CreateAssetMenu(menuName = "ScriptableVars/Events/Event")]
     public class GameEvent : ScriptableObject
     {
