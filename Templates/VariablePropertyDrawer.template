@@ -1,0 +1,10 @@
+﻿using UnityEditor;
+
+namespace GTVariable.Editor
+{
+    [CustomPropertyDrawer(typeof(*className*Variable))]
+    public class *className*VariablePropertyDrawer : VariablePropertyDrawer
+    {
+
+    }
+}

@@ -1,0 +1,12 @@
+﻿using UnityEngine;
+using UnityEngine.Events;
+*nameSpace*
+
+namespace GTVariable
+{
+    [System.Serializable]
+    public class *className*Event : UnityEvent<*typeName*>
+    {
+
+    }
+}

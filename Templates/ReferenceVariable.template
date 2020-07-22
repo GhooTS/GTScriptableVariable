@@ -1,0 +1,11 @@
+﻿using UnityEngine;
+*nameSpace*
+
+namespace GTVariable
+{
+    [System.Serializable]
+    public class *className*Reference : ReferenceVariable<*typeName*, *className*Variable>
+    {
+
+    }
+}

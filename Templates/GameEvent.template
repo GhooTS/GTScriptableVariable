@@ -1,0 +1,11 @@
+﻿using UnityEngine;
+*nameSpace*
+
+namespace GTVariable
+{
+    [CreateAssetMenu(menuName = "ScriptableVars/Events/*className* Event")]
+    public class *className*GameEvent : ParameterizedGameEvent<IRaisable<*className*Event, *typeName*>, *className*Event, *typeName*>
+    {
+
+    }
+}

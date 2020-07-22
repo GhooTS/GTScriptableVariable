@@ -1,0 +1,11 @@
+﻿using UnityEngine;
+*nameSpace*
+
+namespace GTVariable
+{
+    [CreateAssetMenu(menuName = "ScriptableVars/Vars/*className*")]
+    public class *className*Variable : Variable<*typeName*>
+    {
+        
+    } 
+}
