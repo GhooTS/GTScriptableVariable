@@ -63,6 +63,7 @@ namespace GTVariable.Editor
             if (FirstComponent && firstComponentEnabled == false)
             {
                 Undo.undoRedoPerformed += Refresh;
+                AssemblyReloadEvents.beforeAssemblyReload += DetachDefinitively;
                 allComponentsAttached = true;
                 firstComponentEnabled = true;
             }
@@ -88,6 +89,16 @@ namespace GTVariable.Editor
             {
                 MoveToNextComponent();
             }
+        }
+
+        private void DetachDefinitively()
+        {
+            Undo.undoRedoPerformed -= Refresh;
+            AssemblyReloadEvents.beforeAssemblyReload -= DetachDefinitively;
+            allComponentsAttached = false;
+            SetVisiableFlag(allComponentsAttached);
+            elements.Clear();
+            firstComponentEnabled = false;
         }
 
         protected virtual void DrawOptions()
@@ -327,3 +338,4 @@ namespace GTVariable.Editor
 
     }
 }
+
