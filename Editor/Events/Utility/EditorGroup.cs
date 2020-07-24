@@ -63,6 +63,7 @@ namespace GTVariable.Editor
             if (FirstComponent && firstComponentEnabled == false)
             {
                 Undo.undoRedoPerformed += Refresh;
+                allComponentsAttached = true;
                 firstComponentEnabled = true;
             }
 
@@ -77,6 +78,7 @@ namespace GTVariable.Editor
             if (UnityEditor.Selection.activeGameObject != gameObject)
             {
                 Undo.undoRedoPerformed -= Refresh;
+                allComponentsAttached = false;
                 SetVisiableFlag(allComponentsAttached);
                 elements.Clear();
                 firstComponentEnabled = false;
