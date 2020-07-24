@@ -3,8 +3,10 @@ using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
+
 namespace GTVariable.Editor
 {
+
     public class EditorGroup<T> : UnityEditor.Editor
     where T : MonoBehaviour, new()
     {
@@ -78,7 +80,7 @@ namespace GTVariable.Editor
                 SetVisiableFlag(allComponentsAttached);
                 elements.Clear();
                 firstComponentEnabled = false;
-            }
+            } 
 
             if (FirstComponent && gameObject != null)
             {
@@ -258,7 +260,11 @@ namespace GTVariable.Editor
 
             if (TargetComponent == null)
             {
-                if (elements.First().HasComponent() == false) return;
+                if (elements.First().HasComponent() == false)
+                {
+                    elements.RemoveAt(0);
+                    return;
+                }
 
                 elements.First().SetAttach(false);
             }
