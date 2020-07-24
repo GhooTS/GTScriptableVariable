@@ -12,16 +12,16 @@ namespace GTVariable.Editor
     {
 
         public bool FirstComponent { get; private set; } = false;
+        public T TargetComponent { get; private set; }
+        public GameObject GameObject { get; private set; }
 
-        private readonly static List<EditorGroupElement<T>> elements = new List<EditorGroupElement<T>>();
+
+        protected readonly ComponentEnabledGruopController enabledGruop = new ComponentEnabledGruopController();
+        protected readonly static List<EditorGroupElement<T>> elements = new List<EditorGroupElement<T>>();
         private static bool allComponentsAttached = true;
         private static bool firstComponentEnabled = false;
 
-        private bool showMixedValueForEnabled = false;
-        private bool allComponentsEnabled = true;
 
-        GameObject gameObject;
-        public T TargetComponent { get; private set; }
 
 
         public override void OnInspectorGUI()
@@ -38,7 +38,7 @@ namespace GTVariable.Editor
                     var thisElement = elements.Find((element) => element.Component == TargetComponent);
                     thisElement.ShouldBeDetach = false;
                     thisElement.SetAttach(true);
-                    EditorGUIUtility.PingObject(gameObject);
+                    EditorGUIUtility.PingObject(GameObject);
                 }
                 EditorGUILayout.Space();
                 DrawDefaultInspector();
@@ -50,14 +50,14 @@ namespace GTVariable.Editor
             TargetComponent = target as T;
             if (TargetComponent != null)
             {
-                gameObject = TargetComponent.gameObject;
+                GameObject = TargetComponent.gameObject;
                 AttachComponents();
             }
         }
 
         protected void AttachComponents()
         {
-            FirstComponent = TargetComponent == gameObject.GetComponent<T>();
+            FirstComponent = TargetComponent == GameObject.GetComponent<T>();
 
 
             if (FirstComponent && firstComponentEnabled == false)
@@ -76,7 +76,7 @@ namespace GTVariable.Editor
 
         protected void DetachComponents()
         {
-            if (UnityEditor.Selection.activeGameObject != gameObject)
+            if (UnityEditor.Selection.activeGameObject != GameObject)
             {
                 Undo.undoRedoPerformed -= Refresh;
                 allComponentsAttached = false;
@@ -85,7 +85,7 @@ namespace GTVariable.Editor
                 firstComponentEnabled = false;
             } 
 
-            if (FirstComponent && gameObject != null)
+            if (FirstComponent && GameObject != null)
             {
                 MoveToNextComponent();
             }
@@ -106,22 +106,22 @@ namespace GTVariable.Editor
             EditorGUILayout.BeginHorizontal();
 
             var showMixedValue = EditorGUI.showMixedValue;
-            EditorGUI.showMixedValue = showMixedValueForEnabled;
+            EditorGUI.showMixedValue = enabledGruop.showMixedValue;
             EditorGUI.BeginChangeCheck();
-            EditorGUILayout.Toggle(allComponentsEnabled, GUILayout.MaxWidth(18));
+            EditorGUILayout.Toggle(enabledGruop.allEnabled, GUILayout.MaxWidth(18));
 
             if (EditorGUI.EndChangeCheck()) 
             {
-                allComponentsEnabled = !allComponentsEnabled;
-                SetEnabledForAllComponents(allComponentsEnabled);
-                showMixedValueForEnabled = IsMixedEnabled();
+                enabledGruop.allEnabled = !enabledGruop.allEnabled;
+                enabledGruop.SetEnabledForAllComponents(elements);
+                enabledGruop.UpdateMixedEnabled(elements);
             }
 
             EditorGUI.showMixedValue = showMixedValue;
 
             if (FirstComponent && GUILayout.Button("Add", EditorStyles.miniButton))
             {
-                AttachComponent(Undo.AddComponent<T>(gameObject));
+                AttachComponent(Undo.AddComponent<T>(GameObject));
             }
 
             if (GUILayout.Button("Remove All", EditorStyles.miniButton))
@@ -137,7 +137,7 @@ namespace GTVariable.Editor
             {
                 allComponentsAttached = !allComponentsAttached;
                 SetVisiableFlag(allComponentsAttached);
-                EditorGUIUtility.PingObject(gameObject); //TODO: better way to update inspector
+                EditorGUIUtility.PingObject(GameObject); //TODO: better way to update inspector
             }
 
             EditorGUILayout.LabelField($"Attach: {elements.Count}", GUILayout.MaxWidth(60));
@@ -181,8 +181,8 @@ namespace GTVariable.Editor
                 {
                     Undo.RecordObject(elements[i].Component, "Component Enabled");
                     elements[i].Enabled = !elements[i].Enabled;
-                    showMixedValueForEnabled = IsMixedEnabled();
-                    if (showMixedValueForEnabled == false) allComponentsEnabled = elements[0].Enabled;
+                    enabledGruop.UpdateMixedEnabled(elements);
+                    if (enabledGruop.showMixedValue == false) enabledGruop.allEnabled = elements[0].Enabled;
                 }
 
                 GUILayout.Space(10);
@@ -228,7 +228,7 @@ namespace GTVariable.Editor
         private void Refresh()
         {
             
-            var attachComponents = gameObject.GetComponents<T>();
+            var attachComponents = GameObject.GetComponents<T>();
             if (elements.Count != attachComponents.Length)
             {
                 for (int i = 0; i < attachComponents.Length; i++)
@@ -260,10 +260,10 @@ namespace GTVariable.Editor
             }
             SetVisiableFlag(allComponentsAttached);
 
-            showMixedValueForEnabled = IsMixedEnabled();
-            if (showMixedValueForEnabled == false && elements.Count != 0)
+            enabledGruop.UpdateMixedEnabled(elements);
+            if (enabledGruop.showMixedValue == false && elements.Count != 0)
             {
-                allComponentsEnabled = elements[0].Enabled;
+                enabledGruop.allEnabled = elements[0].Enabled;
             }
         }
 
@@ -310,30 +310,7 @@ namespace GTVariable.Editor
             int id = (int)index;
             elements[id].ShouldBeDetach = true;
             elements[id].SetAttach(false);
-            EditorGUIUtility.PingObject(gameObject);
-        }
-
-        private bool IsMixedEnabled()
-        {
-            if (elements.Count < 2) return false;
-
-            var componentEnabled = elements[0].Enabled;
-
-            for (int i = 1; i < elements.Count; i++)
-            {
-                if(elements[i].Enabled != componentEnabled)
-                {
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-        private void SetEnabledForAllComponents(bool enabled)
-        {
-            Undo.RecordObjects(elements.ConvertAll((element) => element.Component).ToArray(),"Components Enabled");
-            elements.ForEach((element) => element.Enabled = enabled);
+            EditorGUIUtility.PingObject(GameObject);
         }
 
     }
