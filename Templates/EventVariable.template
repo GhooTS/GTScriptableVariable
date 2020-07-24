@@ -1,0 +1,20 @@
+﻿using UnityEngine;
+*nameSpace*
+
+namespace GTVariable
+{
+    [CreateAssetMenu(menuName = "ScriptableVars/EventVars/*className*")]
+    public class *className*EventVariable : *className*Variable
+    {
+        public GameEvent valueChaged;
+
+        public override void SetValue(*typeName* value)
+        {
+            base.SetValue(value);
+            if (valueChaged != null)
+            {
+                valueChaged.Raise();
+            }
+        }
+    }
+}
