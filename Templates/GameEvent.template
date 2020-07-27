@@ -4,7 +4,7 @@
 namespace GTVariable
 {
     [CreateAssetMenu(menuName = "ScriptableVars/Events/*className* Event")]
-    public class *className*GameEvent : ParameterizedGameEvent<IRaisable<*className*Event, *typeName*>, *className*Event, *typeName*>
+    public class *className*GameEvent : ParameterizedGameEvent<IParameterizedListener<*className*Event, *typeName*>, *className*Event, *typeName*>
     {
 
     }

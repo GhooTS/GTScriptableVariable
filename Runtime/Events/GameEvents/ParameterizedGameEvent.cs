@@ -5,7 +5,7 @@ namespace GTVariable
 {
     public abstract class ParameterizedGameEvent<ListenerType, EventType, ParameterType> : ScriptableObject
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
-        where ListenerType : IRaisable<EventType, ParameterType>
+        where ListenerType : IParameterizedListener<EventType, ParameterType>
     {
         public List<ListenerType> EventListners { get { return eventListners; } }
         protected readonly List<ListenerType> eventListners = new List<ListenerType>();

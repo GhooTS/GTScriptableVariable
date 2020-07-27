@@ -2,8 +2,8 @@
 
 namespace GTVariable.Editor
 {
-    [CustomEditor(typeof(FloatGameEventListener))]
-    public class FloatGameEventListenerEditor : GameEventListenerEditor
+    [CustomEditor(typeof(FloatListener))]
+    public class FloatListenerEditor : GameEventListenerEditor
     {
         
     }

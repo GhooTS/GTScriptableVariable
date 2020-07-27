@@ -4,7 +4,7 @@ namespace GTVariable.Editor
 {
     [UnityEditor.CustomEditor(typeof(FloatGameEvent))]
     public class FloatGameEventEditor 
-        : ParameterizedGameEventEditor<FloatGameEventListener, FloatGameEvent, FloatEvent, float>
+        : ParameterizedGameEventEditor<FloatListener, FloatGameEvent, FloatEvent, float>
     {
         protected override void DrawParameter()
         {

@@ -35,12 +35,12 @@ namespace GTVariable.Editor.Utility
             var listenerFolder = "Listener";
             items[3] = new TemplateCreatorItem
             {
-                Template = new FileTemplate($"{templatePath}/", "GameEventListener", $"{runtimeFolder}/{listenerFolder}", "", "cs"),
+                Template = new FileTemplate($"{templatePath}/", "Listener", $"{runtimeFolder}/{listenerFolder}", "", "cs"),
                 Required = true
             };
             items[4] = new TemplateCreatorItem
             {
-                Template = new FileTemplate($"{templatePath}/", "GameEventListenerEditor", $"{editorFolder}/{listenerFolder}", "", "cs"),
+                Template = new FileTemplate($"{templatePath}/", "ListenerEditor", $"{editorFolder}/{listenerFolder}", "", "cs"),
                 DependenceIndex = 3,
                 Dependence = true
             };

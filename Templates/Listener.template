@@ -1,0 +1,10 @@
+﻿using UnityEngine;
+*nameSpace*
+
+namespace GTVariable
+{
+    public class *className*Listener : ParameterizedListener<*className*GameEvent, *className*Event,*typeName*>
+    {
+
+    }
+}
