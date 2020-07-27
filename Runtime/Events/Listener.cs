@@ -2,10 +2,11 @@
 
 namespace GTVariable
 {
-    public class Listener : MonoBehaviour
+    public abstract class Listener : MonoBehaviour
     {
 #if UNITY_EDITOR
         new public string name;
 #endif
+
     }
 }

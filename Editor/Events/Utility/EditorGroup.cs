@@ -8,7 +8,7 @@ namespace GTVariable.Editor
 {
 
     public class EditorGroup<T> : UnityEditor.Editor
-    where T : MonoBehaviour, new()
+    where T : MonoBehaviour
     {
 
         public bool FirstComponent { get; private set; } = false;
@@ -17,6 +17,7 @@ namespace GTVariable.Editor
 
 
         protected readonly ComponentEnabledGruopController enabledGruop = new ComponentEnabledGruopController();
+        protected readonly ComponenetCreator<T> componenetCreator = new ComponenetCreator<T>();
         protected readonly static List<EditorGroupElement<T>> elements = new List<EditorGroupElement<T>>();
         private static bool allComponentsAttached = true;
         private static bool firstComponentEnabled = false;
@@ -52,6 +53,7 @@ namespace GTVariable.Editor
             {
                 GameObject = TargetComponent.gameObject;
                 AttachComponents();
+                componenetCreator.UpdateComponentsTypesList();
             }
         }
 
@@ -121,7 +123,7 @@ namespace GTVariable.Editor
 
             if (FirstComponent && GUILayout.Button("Add", EditorStyles.miniButton))
             {
-                AttachComponent(Undo.AddComponent<T>(GameObject));
+                componenetCreator.ShowComponentMenu(GUILayoutUtility.GetLastRect(),GameObject);
             }
 
             if (GUILayout.Button("Remove All", EditorStyles.miniButton))
