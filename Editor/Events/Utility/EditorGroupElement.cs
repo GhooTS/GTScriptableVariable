@@ -43,6 +43,8 @@ namespace GTVariable.Editor
 
         public void SetAttach(bool attach)
         {
+            if (HasComponent() == false) return;
+
             if (ShouldBeDetach)
             {
                 Component.hideFlags = HideFlags.None;
