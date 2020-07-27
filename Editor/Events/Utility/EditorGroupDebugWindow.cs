@@ -5,16 +5,16 @@ using GTVariable.Editor.Utility;
 
 namespace GTVariable.Editor.Debugging
 {
-    public class EditorGroupDebugerWindow : EditorWindow
+    public class EditorGroupDebugWindow : EditorWindow
     {
         private MonoBehaviour[] components;
         private MonoBehaviour[] prevComponents;
         private Vector2 scrollVector;
 
-        [MenuItem("Window/ScriptableVars/Debug/EditorGrupoDebugger")]
+        [MenuItem("Window/ScriptableVars/Debug/Editor Group Debug Window")]
         public static void Init()
         {
-            GetWindow<EditorGroupDebugerWindow>("Editor Group Debugger");
+            GetWindow<EditorGroupDebugWindow>("Editor Group Debug Window");
         }
 
         private void OnEnable()
