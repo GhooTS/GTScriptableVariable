@@ -8,7 +8,7 @@ namespace GTVariable.Editor
 {
 
     public class EditorGroup<T> : UnityEditor.Editor
-    where T : MonoBehaviour
+        where T : MonoBehaviour
     {
 
         public bool FirstComponent { get; private set; } = false;
@@ -16,7 +16,7 @@ namespace GTVariable.Editor
         public GameObject GameObject { get; private set; }
 
 
-        protected readonly ComponentEnabledGruopController enabledGruop = new ComponentEnabledGruopController();
+        protected readonly ComponentEnabledGruopController<T> enabledGruop = new ComponentEnabledGruopController<T>();
         protected readonly ComponenetCreator<T> componenetCreator = new ComponenetCreator<T>();
         protected readonly static List<EditorGroupElement<T>> elements = new List<EditorGroupElement<T>>();
         private static bool allComponentsAttached = true;
@@ -114,8 +114,7 @@ namespace GTVariable.Editor
 
             if (EditorGUI.EndChangeCheck()) 
             {
-                enabledGruop.allEnabled = !enabledGruop.allEnabled;
-                enabledGruop.SetEnabledForAllComponents(elements);
+                enabledGruop.SwitchEnabledForAllComponents(elements);
                 enabledGruop.UpdateMixedEnabled(elements);
             }
 
@@ -181,15 +180,12 @@ namespace GTVariable.Editor
 
                 if (EditorGUI.EndChangeCheck())
                 {
-                    Undo.RecordObject(elements[i].Component, "Component Enabled");
-                    elements[i].Enabled = !elements[i].Enabled;
-                    enabledGruop.UpdateMixedEnabled(elements);
-                    if (enabledGruop.showMixedValue == false) enabledGruop.allEnabled = elements[0].Enabled;
+                    enabledGruop.SetEnabled(i, elements);
                 }
 
                 GUILayout.Space(10);
 
-                elements[i].Foldout = EditorGUILayout.BeginFoldoutHeaderGroup(elements[i].Foldout, foldoutContent, null,
+                elements[i].Foldout = EditorGUILayout.BeginFoldoutHeaderGroup(elements[i].Foldout, foldoutContent,null,
                                 (position) =>
                                 {
                                     var menu = new GenericMenu();
@@ -263,10 +259,6 @@ namespace GTVariable.Editor
             SetVisiableFlag(allComponentsAttached);
 
             enabledGruop.UpdateMixedEnabled(elements);
-            if (enabledGruop.showMixedValue == false && elements.Count != 0)
-            {
-                enabledGruop.allEnabled = elements[0].Enabled;
-            }
         }
 
         private void MoveToNextComponent()
