@@ -6,11 +6,11 @@ namespace GTVariable
     public class GameEventListener : Listener
     {
         public GameEvent[] gameEvents;
-        public UnityEvent Response;
+        public UnityEvent response;
 
         public void OnEventRised()
         {
-            Response?.Invoke();
+            response?.Invoke();
         }
 
         private void OnEnable()

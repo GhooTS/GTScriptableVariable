@@ -5,7 +5,10 @@ namespace GTVariable
     public abstract class Listener : MonoBehaviour
     {
 #if UNITY_EDITOR
-        new public string name;
+        public string listenerName;
+        [TextArea]
+        [SerializeField]
+        private string listenerDescription;
 #endif
 
     }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GTVariable
 {
-    public abstract class ParameterizedGameEvent<ListenerType, EventType, ParameterType> : ScriptableObject
+    public abstract class ParameterizedGameEvent<ListenerType, EventType, ParameterType> : GameEventBase
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
         where ListenerType : IParameterizedListener<EventType, ParameterType>
     {

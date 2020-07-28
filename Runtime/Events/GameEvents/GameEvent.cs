@@ -7,8 +7,9 @@ namespace GTVariable
 {
 
     [CreateAssetMenu(menuName = "ScriptableVars/Events/Event")]
-    public class GameEvent : ScriptableObject
+    public class GameEvent : GameEventBase
     {
+
         public List<GameEventListener> EventListners { get { return eventListners; } }
         private readonly List<GameEventListener> eventListners = new List<GameEventListener>();
 

@@ -7,11 +7,11 @@ namespace GTVariable
         where GameEventType : ParameterizedGameEvent<IParameterizedListener<EventType,ParameterType>,EventType,ParameterType>
     {
         public GameEventType[] gameEvents;
-        public EventType Response;
+        public EventType response;
 
         public void OnEventRised(ParameterType value)
         {
-            Response?.Invoke(value);
+            response?.Invoke(value);
         }
 
         private void OnEnable()
