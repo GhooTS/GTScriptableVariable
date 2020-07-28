@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace GTVariable.Editor
         public bool FirstComponent { get; private set; } = false;
         public T TargetComponent { get; private set; }
         public GameObject GameObject { get; private set; }
+        public int Count { get { return elements.Count; } }
 
 
         protected readonly ComponentEnabledGruopController<T> enabledGruop = new ComponentEnabledGruopController<T>();
@@ -34,7 +36,7 @@ namespace GTVariable.Editor
             }
             else
             {
-                if (GUILayout.Button("Attach"))
+                if (allComponentsAttached && GUILayout.Button("Attach"))
                 {
                     var thisElement = elements.Find((element) => element.Component == TargetComponent);
                     thisElement.ShouldBeDetach = false;
@@ -148,7 +150,7 @@ namespace GTVariable.Editor
             EditorGUILayout.Space();
         }
 
-        protected virtual void DrawEditor(SerializedObject serializedObject)
+        protected virtual void DrawEditor(int index,SerializedObject serializedObject)
         {
             if (serializedObject == null) return;
 
@@ -165,7 +167,6 @@ namespace GTVariable.Editor
 
         protected virtual void DrawEditors()
         {
-            
 
             for (int i = 0; i < elements.Count; i++)
             {
@@ -205,7 +206,7 @@ namespace GTVariable.Editor
                     EditorGUI.BeginChangeCheck();
 
                     elements[i].Update();
-                    DrawEditor(elements[i].SerializedObject);
+                    DrawEditor(i,elements[i].SerializedObject);
                     elements[i].ApplyModifiedProperties();
 
                     if (EditorGUI.EndChangeCheck())
@@ -225,27 +226,19 @@ namespace GTVariable.Editor
 
         private void Refresh()
         {
-            
+            RemoveEmptyElements();
             var attachComponents = GameObject.GetComponents<T>();
             if (elements.Count != attachComponents.Length)
             {
                 for (int i = 0; i < attachComponents.Length; i++)
                 {
-                    if(i < elements.Count)
+                    if (i < elements.Count)
                     {
                         elements[i].ChangeComponent(attachComponents[i], GetComponentName(attachComponents[i]));
                     }
                     else
                     {
                         elements.Add(new EditorGroupElement<T>(attachComponents[i], GetComponentName(attachComponents[i])));
-                    }
-                }
-
-                for (int i = elements.Count - 1; i >= 0; i--)
-                {
-                    if(elements[i].HasComponent() == false)
-                    {
-                        elements.RemoveAt(i);
                     }
                 }
             }
@@ -259,6 +252,17 @@ namespace GTVariable.Editor
             SetVisiableFlag(allComponentsAttached);
 
             enabledGruop.UpdateMixedEnabled(elements);
+        }
+
+        private void RemoveEmptyElements()
+        {
+            for (int i = elements.Count - 1; i >= 0; i--)
+            {
+                if (elements[i].HasComponent() == false)
+                {
+                    elements.RemoveAt(i);
+                }
+            }
         }
 
         private void MoveToNextComponent()
