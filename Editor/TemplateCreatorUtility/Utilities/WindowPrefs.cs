@@ -39,5 +39,15 @@ namespace GTVariable.Editor.Utility
 
             return output;
         }
+
+        public static void SavePosition(EditorWindow window, Rect position)
+        {
+            SavePosition(window.titleContent.text, position);
+        }
+
+        public static Rect LoadPosition(EditorWindow window)
+        {
+            return LoadPosition(window.titleContent.text);
+        }
     }
 }
