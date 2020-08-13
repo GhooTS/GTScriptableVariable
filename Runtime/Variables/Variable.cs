@@ -8,11 +8,9 @@ namespace GTVariable
     [System.Serializable]
     public class Variable<T> : ScriptableObject
     {
-#if UNITY_EDITOR
         [TextArea]
         [SerializeField]
         private string description;
-#endif
         public T value;
 
 
