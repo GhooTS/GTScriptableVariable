@@ -6,11 +6,9 @@ using UnityEngine.Events;
 namespace GTVariable
 {
     [System.Serializable]
-    public class Variable<T> : ScriptableObject
+    public class Variable<T> : VariableBase
     {
-        [TextArea]
-        [SerializeField]
-        private string description;
+        
         public T value;
 
 
@@ -30,3 +28,4 @@ namespace GTVariable
         }
     }
 }
+
