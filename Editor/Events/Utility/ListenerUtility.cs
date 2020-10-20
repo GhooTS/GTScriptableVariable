@@ -24,7 +24,7 @@ namespace GTVariable.Editor
 
         public static bool IsListenerValid<ListenerType,EventType,ParameterType,GameEventType>(ListenerType listener)
             where ListenerType : ParameterizedListener<GameEventType,EventType,ParameterType>
-            where GameEventType : ParameterizedGameEvent<IParameterizedListener<EventType,ParameterType>,EventType,ParameterType>
+            where GameEventType : ParameterizedGameEvent<ParameterizedListener<GameEventType, EventType, ParameterType>, EventType,ParameterType>
             where EventType : UnityEngine.Events.UnityEvent<ParameterType>
         {
             for (int i = 0; i < listener.response.GetPersistentEventCount(); i++)

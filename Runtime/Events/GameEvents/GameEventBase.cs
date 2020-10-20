@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace GTVariable
 {
@@ -7,5 +8,6 @@ namespace GTVariable
         [TextArea]
         [SerializeField]
         private string description;
+        public abstract List<Listener> Listeners { get; }
     }
 }

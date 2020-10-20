@@ -9,8 +9,8 @@ namespace GTVariable.Editor
 
     public class ParameterizedGameEventEditor<ListenerType,GameEventType,EventType,ParameterType> : GameEventEditorBase
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
-        where GameEventType : ParameterizedGameEvent<IParameterizedListener<EventType, ParameterType>, EventType,ParameterType>
         where ListenerType : ParameterizedListener<GameEventType, EventType,ParameterType>
+        where GameEventType : ParameterizedGameEvent<ParameterizedListener<GameEventType, EventType, ParameterType>, EventType,ParameterType>
     {
         public ParameterType parameter = default;
         private readonly List<ListenerType> listeners = new List<ListenerType>();

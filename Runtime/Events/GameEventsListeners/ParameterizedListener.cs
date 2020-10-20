@@ -4,7 +4,7 @@ namespace GTVariable
 {
     public abstract class ParameterizedListener<GameEventType,EventType,ParameterType> : Listener,IParameterizedListener<EventType,ParameterType>
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
-        where GameEventType : ParameterizedGameEvent<IParameterizedListener<EventType,ParameterType>,EventType,ParameterType>
+        where GameEventType : ParameterizedGameEvent<ParameterizedListener<GameEventType, EventType, ParameterType>, EventType,ParameterType>
     {
         public GameEventType[] gameEvents;
         public EventType response;
