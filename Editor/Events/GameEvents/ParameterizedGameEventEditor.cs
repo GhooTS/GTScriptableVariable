@@ -63,6 +63,7 @@ namespace GTVariable.Editor
 
         public override void UpdateListenersList()
         {
+            listeners.Clear();
             GameEventUtility.GetAssosiatedListenersInScene<ListenerType, EventType, ParameterType, GameEventType>(gameEvent, listeners);
             CheckForResponseProblems();
         }

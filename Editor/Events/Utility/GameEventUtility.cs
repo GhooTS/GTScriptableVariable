@@ -50,7 +50,6 @@ namespace GTVariable.Editor
             where GameEventType : ParameterizedGameEvent<ParameterizedListener<GameEventType, EventType, ParameterType>, EventType, ParameterType>
             where EventType : UnityEngine.Events.UnityEvent<ParameterType>
         {
-            listeners.Clear();
             listeners.AddRange(GameObject.FindObjectsOfType<ListenerType>()
                                          .Where(listener => listener.gameEvents
                                          .Where(gameEvent => gameEvent == target)
@@ -66,7 +65,6 @@ namespace GTVariable.Editor
         /// <returns></returns>
         public static void GetAssosiatedListenersInScene(GameEvent target,List<GameEventListener> listeners)
         {
-            listeners.Clear();
             listeners.AddRange(GameObject.FindObjectsOfType<GameEventListener>()
                                          .Where(listener => listener.gameEvents
                                          .Where(gameEvent => gameEvent == target)
