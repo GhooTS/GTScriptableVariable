@@ -8,6 +8,11 @@ namespace GTVariable.Editor
 
     public static class GameEventUtility
     {
+        /// <summary>
+        /// Get all active and enable listener which subscribe to the target event in currently active scene
+        /// </summary>
+        /// <param name="target">target game event</param>
+        /// <returns></returns>
         public static List<ListenerType> GetAssosiatedListenersInScene<ListenerType,EventType,ParameterType,GameEventType>(GameEventType target)
             where ListenerType : ParameterizedListener<GameEventType,EventType,ParameterType>
             where GameEventType : ParameterizedGameEvent<ParameterizedListener<GameEventType, EventType, ParameterType>, EventType,ParameterType>
@@ -20,6 +25,11 @@ namespace GTVariable.Editor
                     .ToList();
         }
 
+        /// <summary>
+        /// Get all active and enable listener which subscribe to the target event in currently active scene
+        /// </summary>
+        /// <param name="target">target game event</param>
+        /// <returns></returns>
         public static List<GameEventListener> GetAssosiatedListenersInScene(GameEvent target)
         {
             return GameObject.FindObjectsOfType<GameEventListener>()
@@ -29,7 +39,12 @@ namespace GTVariable.Editor
                     .ToList();
         }
 
-
+        /// <summary>
+        /// Get all active and enable listener which subscribe to the target event in currently active scene
+        /// </summary>
+        /// <param name="target">target game event</param>
+        /// <param name="listeners">the list to which the found listeners will be added</param>
+        /// <returns></returns>
         public static void GetAssosiatedListenersInScene<ListenerType, EventType, ParameterType, GameEventType>(GameEventType target,List<ListenerType> listeners)
             where ListenerType : ParameterizedListener<GameEventType, EventType, ParameterType>
             where GameEventType : ParameterizedGameEvent<ParameterizedListener<GameEventType, EventType, ParameterType>, EventType, ParameterType>
@@ -43,6 +58,12 @@ namespace GTVariable.Editor
                                          .ToList());
         }
 
+        /// <summary>
+        /// Get all active and enable listener which subscribe to the target event in currently active scene
+        /// </summary>
+        /// <param name="target">target game event</param>
+        /// <param name="listeners">the list to which the found listeners will be added</param>
+        /// <returns></returns>
         public static void GetAssosiatedListenersInScene(GameEvent target,List<GameEventListener> listeners)
         {
             listeners.Clear();

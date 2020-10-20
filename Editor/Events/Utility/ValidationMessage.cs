@@ -2,6 +2,7 @@
 {
     public static class ValidationMessage
     {
+        /// <returns>returns proper validation message base on the <seealso cref="ListenerValidionState"/></returns>
         public static string GetMessage(ListenerValidionState validionState)
         {
             switch (validionState)

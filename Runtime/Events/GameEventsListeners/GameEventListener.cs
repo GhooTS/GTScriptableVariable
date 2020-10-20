@@ -5,9 +5,19 @@ namespace GTVariable
 {
     public class GameEventListener : Listener
     {
+        /// <summary>
+        /// List of game events to which this listener subscribe to
+        /// </summary>
         public GameEvent[] gameEvents;
+
+        /// <summary>
+        /// Response which will be call <seealso cref="OnEventRised()"/>
+        /// </summary>
         public UnityEvent response;
 
+        /// <summary>
+        /// Invoke <seealso cref="response"/> with specify value
+        /// </summary>
         public void OnEventRised()
         {
             response?.Invoke();

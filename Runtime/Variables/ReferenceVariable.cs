@@ -7,13 +7,21 @@ namespace GTVariable
     [System.Serializable]
     public class ReferenceVariable<T, VariableType> where VariableType : Variable<T>
     {
+
+        /// <summary>
+        /// use constant value or assign variable? 
+        /// </summary>
         [SerializeField]
-        private bool useConstant = true;
+        public bool useConstant = true;
         [SerializeField]
         private T constantValue;
         [SerializeField]
         private VariableType variable;
 
+        /// <summary>
+        /// Value of this reference variable
+        /// </summary>
+        /// <remarks>You will modify/access constant value or variable depends on the <seealso cref="UseConstant"/></remarks>
         public T Value
         {
             get
