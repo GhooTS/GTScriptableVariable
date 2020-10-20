@@ -10,7 +10,6 @@ namespace GTVariable
     [CreateAssetMenu(menuName = "ScriptableVars/Events/Event")]
     public class GameEvent : GameEventBase
     {
-        public override List<Listener> Listeners { get { return eventListners.ToList<Listener>(); } }
         public List<GameEventListener> EventListners { get { return eventListners; } }
         private readonly List<GameEventListener> eventListners = new List<GameEventListener>();
 

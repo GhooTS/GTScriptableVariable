@@ -8,6 +8,5 @@ namespace GTVariable
         [TextArea]
         [SerializeField]
         private string description;
-        public abstract List<Listener> Listeners { get; }
     }
 }
