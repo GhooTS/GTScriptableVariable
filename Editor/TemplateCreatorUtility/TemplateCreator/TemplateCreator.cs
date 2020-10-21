@@ -22,10 +22,14 @@ namespace GTVariable.Editor.Utility
         }
 
 
-        public virtual void DrawCreator(string rootFolderPath, string rootFolderRelativePath, TextPattern[] textPatterns)
+        public virtual void DrawCreator(string rootFolderPath, string rootFolderRelativePath, TextPattern[] textPatterns,bool creationEnabled = true)
         {
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
+
+            var enabled = GUI.enabled;
+            GUI.enabled = creationEnabled;
+
             if (GUILayout.Button("Create"))
             {
                 CraeteAll(rootFolderPath, rootFolderRelativePath, textPatterns);
@@ -35,6 +39,8 @@ namespace GTVariable.Editor.Utility
             {
                 DeleteAll(rootFolderRelativePath);
             }
+
+            GUI.enabled = enabled;
 
             EditorGUILayout.EndHorizontal();
 
@@ -46,7 +52,7 @@ namespace GTVariable.Editor.Utility
             }
             EditorGUILayout.EndVertical();
             previewScrollVector = EditorGUILayout.BeginScrollView(previewScrollVector);
-            var enabled = GUI.enabled;
+            enabled = GUI.enabled;
             GUI.enabled = false;
             EditorGUILayout.TextArea(PreviewTemplateContent);
             GUI.enabled = enabled;

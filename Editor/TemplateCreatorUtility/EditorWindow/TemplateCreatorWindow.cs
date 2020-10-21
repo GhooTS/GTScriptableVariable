@@ -77,7 +77,7 @@ namespace GTVariable.Editor.Utility
                 creators[selected].UpdateNames(ClassName);
                 creators[selected].UpdateExist(rootFolderPath);
             }
-            creators[selected].DrawCreator(rootFolderPath, rootFolderRelativePath, textPatterns);
+            creators[selected].DrawCreator(rootFolderPath, rootFolderRelativePath, textPatterns,!string.IsNullOrEmpty(ClassName) && string.IsNullOrEmpty(TypeName));
         }
 
         private void DrawOptions()
