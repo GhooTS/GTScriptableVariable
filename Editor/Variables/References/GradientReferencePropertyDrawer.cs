@@ -3,7 +3,7 @@
 namespace GTVariable.Editor
 {
     [CustomPropertyDrawer(typeof(GradientReference))]
-    public class GradientReferenceVariablePropertyDrawer : ReferenceVariablePropertyDrawer
+    public class GradientReferencePropertyDrawer : ReferencePropertyDrawer
     {
 
     }

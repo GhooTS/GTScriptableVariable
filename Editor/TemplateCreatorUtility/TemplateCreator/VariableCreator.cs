@@ -13,12 +13,13 @@ namespace GTVariable.Editor.Utility
             SetSize(5);
 
             //Variable templates
-            var varsFolder = "Vars";
+            var varsFolder = "Variables/Vars";
             items[0] = new TemplateCreatorItem
             {
                 Template = new FileTemplate($"{templatePath}/", "Variable", $"{runtimeFolder}/{varsFolder}", "", "cs"),
                 Required = true
             };
+            
             items[1] = new TemplateCreatorItem
             {
                 Template = new FileTemplate($"{templatePath}/", "VariablePropertyDrawer", $"{editorFolder}/{varsFolder}", "", "cs"),
@@ -26,24 +27,25 @@ namespace GTVariable.Editor.Utility
                 Dependence = true
             };
 
+            var eventVarsFolder = "Variables/EventVars";
             items[2] = new TemplateCreatorItem
             {
-                Template = new FileTemplate($"{templatePath}/", "EventVariable", $"{editorFolder}/{varsFolder}", "", "cs"),
+                Template = new FileTemplate($"{templatePath}/", "EventVariable", $"{runtimeFolder}/{eventVarsFolder}", "", "cs"),
                 DependenceIndex = 0,
                 Dependence = true
             };
 
             //Reference templates
-            var referenceFolder = "References";
+            var referenceFolder = "Variables/References";
             items[3] = new TemplateCreatorItem
             {
-                Template = new FileTemplate($"{templatePath}/", "ReferenceVariable", $"{runtimeFolder}/{referenceFolder}", "", "cs")
+                Template = new FileTemplate($"{templatePath}/", "Reference", $"{runtimeFolder}/{referenceFolder}", "", "cs")
 
             };
 
             items[4] = new TemplateCreatorItem
             {
-                Template = new FileTemplate($"{templatePath}/", "ReferenceVariablePropertyDrawer", $"{editorFolder}/{referenceFolder}", "", "cs"),
+                Template = new FileTemplate($"{templatePath}/", "ReferencePropertyDrawer", $"{editorFolder}/{referenceFolder}", "", "cs"),
                 DependenceIndex = 3,
                 Dependence = true
             };

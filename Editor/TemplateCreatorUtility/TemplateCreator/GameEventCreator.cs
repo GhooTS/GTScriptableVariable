@@ -10,15 +10,17 @@ namespace GTVariable.Editor.Utility
         {
             SetSize(5);
             CreatorName = "Game Event Creator";
+
+            var unityEventsFolder = "Events/UnityEvents";
             //UnityEvent template
             items[0] = new TemplateCreatorItem
             {
-                Template = new FileTemplate($"{templatePath}/", "Event", $"{runtimeFolder}/UnityEvent", "", "cs"),
+                Template = new FileTemplate($"{templatePath}/", "Event", $"{runtimeFolder}/{unityEventsFolder}", "", "cs"),
                 Required = true
             };
 
             //GameEvent templates
-            var gameEventFolder = "GameEvent";
+            var gameEventFolder = "Events/GameEvents";
             items[1] = new TemplateCreatorItem
             {
                 Template = new FileTemplate($"{templatePath}/", "GameEvent", $"{runtimeFolder}/{gameEventFolder}", "", "cs"),
@@ -32,7 +34,7 @@ namespace GTVariable.Editor.Utility
             };
 
             //Listener templates
-            var listenerFolder = "Listener";
+            var listenerFolder = "Events/Listeners";
             items[3] = new TemplateCreatorItem
             {
                 Template = new FileTemplate($"{templatePath}/", "Listener", $"{runtimeFolder}/{listenerFolder}", "", "cs"),

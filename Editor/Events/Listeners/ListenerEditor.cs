@@ -6,7 +6,7 @@ using UnityEditorInternal;
 namespace GTVariable.Editor
 {
     [CustomEditor(typeof(GameEventListener))]
-    public class GameEventListenerEditor : EditorGroup<Listener>
+    public class ListenerEditor : EditorGroup<Listener>
     {
         SerializedProperty listenerName;
         SerializedProperty listenerDescription;
