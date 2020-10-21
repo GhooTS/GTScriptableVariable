@@ -8,6 +8,16 @@ namespace GTVariable.Editor
 
     public static class GameEventUtility
     {
+
+        public static void GetAssosiatedListenersInScene(GameEventBase target,List<Listener> listeners)
+        {
+            listeners.AddRange( GameObject.FindObjectsOfType<Listener>()
+                                        .Where(listener => listener.GetGameEvents()
+                                        .Where(gameEvent => gameEvent == target)
+                                        .ToArray().Length > 0)
+                                        .ToList());
+        }
+
         /// <summary>
         /// Get all active and enable listener which subscribe to the target event in currently active scene
         /// </summary>

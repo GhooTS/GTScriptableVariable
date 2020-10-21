@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 using UnityEngine.Events;
 
 namespace GTVariable
@@ -8,7 +9,7 @@ namespace GTVariable
         /// <summary>
         /// List of game events to which this listener subscribe to
         /// </summary>
-        public GameEvent[] gameEvents;
+        public List<GameEventBase> gameEvents;
 
         /// <summary>
         /// Response which will be call <seealso cref="OnEventRised()"/>
@@ -18,7 +19,7 @@ namespace GTVariable
         /// <summary>
         /// Invoke <seealso cref="response"/> with specify value
         /// </summary>
-        public void OnEventRised()
+        public override void OnEventRised()
         {
             response?.Invoke();
         }
@@ -38,6 +39,16 @@ namespace GTVariable
             {
                 gameEvent.UnRegisterListener(this);
             }
+        }
+
+        public override UnityEventBase GetResponse()
+        {
+            return response;
+        }
+
+        public override List<GameEventBase> GetGameEvents()
+        {
+            return gameEvents;
         }
     }
 }

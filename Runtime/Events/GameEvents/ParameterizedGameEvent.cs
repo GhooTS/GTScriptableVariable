@@ -19,6 +19,16 @@ namespace GTVariable
             }
         }
 
+        public override void RegisterListener(Listener listner)
+        {
+            //eventListners.Add(listner);
+        }
+
+        public override void UnRegisterListener(Listener listner)
+        {
+            //eventListners.Remove(listner);
+        }
+
         public void RegisterListener(ListenerType listner)
         {
             eventListners.Add(listner);

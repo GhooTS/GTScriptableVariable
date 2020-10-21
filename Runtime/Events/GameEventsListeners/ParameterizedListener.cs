@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.Events;
 
 namespace GTVariable
 {
@@ -6,23 +8,16 @@ namespace GTVariable
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
         where GameEventType : ParameterizedGameEvent<ParameterizedListener<GameEventType, EventType, ParameterType>, EventType,ParameterType>
     {
+
         /// <summary>
         /// List of game events to which this listener subscribe to
         /// </summary>
-        public GameEventType[] gameEvents;
+        public List<GameEventType> gameEvents;
 
         /// <summary>
         /// Response which will be call <seealso cref="OnEventRised(ParameterType)"/>
         /// </summary>
         public EventType response;
-
-        /// <summary>
-        /// Invoke <seealso cref="response"/> with specify value
-        /// </summary>
-        public void OnEventRised(ParameterType value)
-        {
-            response?.Invoke(value);
-        }
 
         private void OnEnable()
         {
@@ -39,6 +34,29 @@ namespace GTVariable
             {
                 gameEvent.UnRegisterListener(this);
             }
+        }
+
+        /// <summary>
+        /// Invoke <seealso cref="response"/> with specify value
+        /// </summary>
+        public void OnEventRised(ParameterType value)
+        {
+            response?.Invoke(value);
+        }
+
+        public override void OnEventRised()
+        {
+            response?.Invoke(default);
+        }
+
+        public override UnityEventBase GetResponse()
+        {
+            return response;
+        }
+
+        public override List<GameEventBase> GetGameEvents()
+        {
+            return gameEvents as List<GameEventBase>;
         }
     }
 }

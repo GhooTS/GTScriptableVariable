@@ -1,29 +1,55 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
-
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace GTVariable.Editor
 {
-
-    public abstract class GameEventEditorBase : UnityEditor.Editor
+    public abstract class GameEventEditorBase<T> : UnityEditor.Editor
+        where T : GameEventBase
     {
-        private bool initizale = false;
-        protected int currentSelected = -1;
-        protected string selectedName;
-        Vector2 responseScroll, subscirbersScroll;
-        GUIStyle errorStyle;
+        protected readonly List<Listener> listeners = new List<Listener>();
+        protected readonly List<bool> validionStates = new List<bool>();
+        protected readonly List<bool> foldout = new List<bool>();
+        protected Vector2 subscribersScroll;
+        protected T gameEvent;
+        protected int page = 0;
+        protected int showPerPage = 5;
+        protected bool responseVisable = false;
+
+        private UnityEventBase response;
+
+        private const string showPerPageKey = "GameEventEditor_SHOWPERPAGE";
+        private const string responseVisableKey = "GameEventEditor_RESPONSEVISABLE";
 
 
-        public void Init()
+        private void OnEnable()
         {
-            if (initizale) return;
+            gameEvent = target as T;
+            UpdateListenersList();
+            showPerPage = EditorPrefs.GetInt(showPerPageKey);
+            responseVisable = EditorPrefs.GetBool(responseVisableKey);
+        }
 
-            errorStyle = new GUIStyle(EditorStyles.label)
-            {
-                imagePosition = ImagePosition.ImageOnly
-            };
-            initizale = true;
+
+        private void OnDisable()
+        {
+            EditorPrefs.SetInt(showPerPageKey, showPerPage);
+            EditorPrefs.SetBool(responseVisableKey, responseVisable);
+        }
+
+
+        public override void OnInspectorGUI()
+        {
+            DrawDefaultInspector();
+            DrawOptions();
+            DrawSubscribers();
+        }
+
+        private void OnSceneGUI()
+        {
+            Debug.Log("Scene GUI");
         }
 
         public void DrawOptions()
@@ -40,111 +66,94 @@ namespace GTVariable.Editor
                 UpdateListenersList();
             }
 
+            if (Application.isPlaying) DrawParameter();
+
             EditorGUILayout.EndHorizontal();
+            showPerPage = EditorGUILayout.IntSlider("Show Per Page", showPerPage, 1, 50);
+            page = EditorGUILayout.IntSlider("Page", page, 0, Mathf.Max(0, (listeners.Count - 1) / showPerPage));
+            responseVisable = EditorGUILayout.Toggle("Always show response", responseVisable);
         }
 
-        public void DrawSubscribers<T>(List<T> gameEventListeners, List<bool> listenerValid)
-            where T : Listener
+        public void DrawSubscribers()
         {
             GUILayout.Label("Subscirbers:", EditorStyles.boldLabel);
-            subscirbersScroll = EditorGUILayout.BeginScrollView(subscirbersScroll, GUILayout.MaxHeight(Screen.height - 300));
-            for (int i = 0; i < gameEventListeners.Count; i++)
+            subscribersScroll = EditorGUILayout.BeginScrollView(subscribersScroll);
+            for (int i = 0; i < showPerPage; i++)
             {
-                bool selected;
-                if (listenerValid.Count <= i || listenerValid[i])
+                int index = showPerPage * page + i;
+
+                if (index >= listeners.Count) break;
+
+                if (listeners[index] == null)
                 {
-                    selected = DrawSubscriber(gameEventListeners[i]);
+                    UpdateListenersList();
+                    break;
                 }
-                else
-                {
-                    EditorGUILayout.BeginHorizontal(EditorStyles.helpBox);
-                    EditorGUILayout.LabelField(EditorGUIUtility.IconContent("console.erroricon.sml"), errorStyle, GUILayout.MaxHeight(20), GUILayout.MaxWidth(30));
-                    selected = DrawSubscriber(gameEventListeners[i]);
-                    EditorGUILayout.EndHorizontal();
-                }
-                if (selected)
-                {
-                    currentSelected = i;
-                    selectedName = gameEventListeners[i].listenerName;
-                }
+
+                DrawSubscriber(index);
             }
             EditorGUILayout.EndScrollView();
 
         }
 
-        public bool DrawSubscriber<T>(T listener)
-            where T : Listener
+        public bool DrawSubscriber(int i)
         {
-            var name = listener.listenerName;
+            var name = listeners[i].listenerName;
             if (string.IsNullOrEmpty(name)) name = "[No name specify]";
-            EditorGUILayout.BeginHorizontal();
+
+
+            GUILayout.Box(name, GUILayout.ExpandWidth(true));
             var enabled = GUI.enabled;
             GUI.enabled = false;
-            EditorGUILayout.ObjectField(listener.gameObject, listener.gameObject.GetType(), true);
+            EditorGUILayout.ObjectField("Listener", listeners[i], listeners[i].GetType(), true);
             GUI.enabled = enabled;
-            var selected = GUILayout.Button(name);
 
-            EditorGUILayout.EndHorizontal();
+            response = listeners[i].GetResponse();
 
-            return selected;
+            foldout[i] = EditorGUILayout.BeginFoldoutHeaderGroup(foldout[i], GameEventGUI.GetResposeFoldoutHeader(response, validionStates[i]));
+
+            if (foldout[i] || responseVisable)
+            {
+                GameEventGUI.DrawResponse(response);
+            }
+
+            EditorGUILayout.EndFoldoutHeaderGroup();
+            EditorGUILayout.Space(10f);
+
+            return false;
         }
 
-        public void DrawResponse(UnityEngine.Events.UnityEventBase response)
+        private void CheckForResponseProblems()
         {
-
-
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.LabelField("Target",EditorStyles.centeredGreyMiniLabel);
-            EditorGUILayout.LabelField("Method name",EditorStyles.centeredGreyMiniLabel);
-            EditorGUILayout.EndHorizontal();
-
-            var eventCount = response.GetPersistentEventCount();
-
-            responseScroll = EditorGUILayout.BeginScrollView(responseScroll, GUILayout.MaxHeight(200));
-            for (int i = 0; i < eventCount; i++)
+            for (int i = 0; i < listeners.Count; i++)
             {
-                var validationState = ListenerUtility.ValidedResponse(response,i);
-
-                EditorGUILayout.BeginHorizontal();
-
-                if (validationState == ListenerValidionState.Valid)
+                var valid = ListenerUtility.IsListenerValid(listeners[i]);
+                if (i >= validionStates.Count)
                 {
-                    var enabled = GUI.enabled;
-                    GUI.enabled = false;
-                    EditorGUILayout.ObjectField(response.GetPersistentTarget(i), response.GetPersistentTarget(i).GetType(), true);
-                    GUI.enabled = enabled;
-                    EditorGUILayout.LabelField(response.GetPersistentMethodName(i));
+                    validionStates.Add(valid);
                 }
                 else
                 {
-                    EditorGUI.HelpBox(GUILayoutUtility.GetRect(EditorGUIUtility.currentViewWidth - 50, EditorGUIUtility.singleLineHeight + 5)
-                                                              ,ValidationMessage.GetMessage(validationState)
-                                                              ,MessageType.Error);
+                    validionStates[i] = valid;
                 }
-
-                EditorGUILayout.EndHorizontal();
             }
-            EditorGUILayout.EndScrollView();
-        }
-
-        
-
-        public void DrawSelected<ListenerType,EventType>(ListenerType listener,EventType respones)
-            where ListenerType : Listener
-            where EventType : UnityEngine.Events.UnityEventBase
-        {
-            EditorGUILayout.BeginHorizontal();
-            var enabled = GUI.enabled;
-            GUI.enabled = false;
-            EditorGUILayout.ObjectField(listener.gameObject, listener.gameObject.GetType(), true);
-            GUI.enabled = enabled;
-            EditorGUILayout.LabelField(selectedName);
-            EditorGUILayout.EndHorizontal();
-            EditorGUILayout.LabelField("Response", EditorStyles.boldLabel);
-            DrawResponse(respones);
         }
 
         public abstract void RaiseEvent();
-        public abstract void UpdateListenersList();
+        public virtual void DrawParameter()
+        {
+
+        }
+
+        public void UpdateListenersList()
+        {
+            listeners.Clear();
+            GameEventUtility.GetAssosiatedListenersInScene(gameEvent, listeners);
+            CheckForResponseProblems();
+            for (int i = foldout.Count; i < listeners.Count; i++)
+            {
+                foldout.Add(false);
+            }
+        }
     }
 }

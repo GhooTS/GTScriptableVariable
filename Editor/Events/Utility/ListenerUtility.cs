@@ -28,6 +28,24 @@ namespace GTVariable.Editor
         /// Validate listener
         /// </summary>
         /// <param name="listener"></param>
+        /// <returns>returns false if one of the response missing target or method</returns>
+        public static bool IsListenerValid(Listener listener)
+        {
+            var unityEvent = listener.GetResponse();
+
+            for (int i = 0; i < unityEvent.GetPersistentEventCount(); i++)
+            {
+                if (ValidedResponse(unityEvent, i) != ListenerValidionState.Valid) return false;
+            }
+
+            return true;
+        }
+
+
+        /// <summary>
+        /// Validate listener
+        /// </summary>
+        /// <param name="listener"></param>
         /// <returns>returns false if one of the <seealso cref="GameEventListener.response"/> missing target or method</returns>
         public static bool IsListenerValid(GameEventListener listener)
         {

@@ -10,8 +10,8 @@ namespace GTVariable
     [CreateAssetMenu(menuName = "ScriptableVars/Events/Event")]
     public class GameEvent : GameEventBase
     {
-        public List<GameEventListener> EventListners { get { return eventListners; } }
-        private readonly List<GameEventListener> eventListners = new List<GameEventListener>();
+        public List<Listener> EventListners { get { return eventListners; } }
+        private readonly List<Listener> eventListners = new List<Listener>();
 
         public void Raise()
         {
@@ -21,14 +21,16 @@ namespace GTVariable
             }
         }
 
-        public void RegisterListener(GameEventListener listner)
+        public override void RegisterListener(Listener listner)
         {
             eventListners.Add(listner);
         }
 
-        public void UnRegisterListener(GameEventListener listner)
+        public override void UnRegisterListener(Listener listner)
         {
             eventListners.Remove(listner);
         }
+
+        
     }
 }
