@@ -8,7 +8,7 @@ using UnityEngine;
 namespace GTVariable.Editor
 {
 
-    public class EditorGroup<T> : UnityEditor.Editor
+    internal class EditorGroup<T> : UnityEditor.Editor
         where T : MonoBehaviour
     {
 

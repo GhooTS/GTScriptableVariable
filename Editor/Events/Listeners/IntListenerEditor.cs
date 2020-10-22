@@ -4,7 +4,7 @@ using UnityEditor;
 namespace GTVariable.Editor
 {
     [CustomEditor(typeof(IntListener))]
-    public class IntListenerEditor : ListenerEditor
+    internal class IntListenerEditor : ListenerEditor
     {
         
     }
