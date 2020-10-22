@@ -4,9 +4,9 @@ using UnityEngine.Events;
 
 namespace GTVariable
 {
-    public abstract class ParameterizedListener<GameEventType,EventType,ParameterType> : Listener,IParameterizedListener<EventType,ParameterType>
+    public abstract class Listener<GameEventType, EventType, ParameterType> : Listener, IListener<EventType, ParameterType>
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
-        where GameEventType : ParameterizedGameEvent<ParameterizedListener<GameEventType, EventType, ParameterType>, EventType,ParameterType>
+        where GameEventType : GameEvent<Listener<GameEventType, EventType, ParameterType>, EventType, ParameterType>
     {
 
         /// <summary>

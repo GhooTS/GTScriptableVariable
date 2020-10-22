@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace GTVariable
 {
-    public abstract class ParameterizedGameEvent<ListenerType, EventType, ParameterType> : GameEventBase
+    public abstract class GameEvent<ListenerType, EventType, ParameterType> : GameEventBase
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
-        where ListenerType : Listener,IParameterizedListener<EventType, ParameterType>
+        where ListenerType : Listener,IListener<EventType, ParameterType>
     {
         public List<ListenerType> EventListners { get { return eventListners; } }
         protected readonly List<ListenerType> eventListners = new List<ListenerType>();

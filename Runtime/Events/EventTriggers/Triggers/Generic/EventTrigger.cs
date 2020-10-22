@@ -8,8 +8,8 @@ namespace GTVariable
     /// Derive from this class to create event trigger for one argument game event
     /// </summary>
     public class EventTrigger<GameEventType,ListenerType,EventType,ParameterType> : EventTriggerBase
-        where GameEventType : ParameterizedGameEvent<ParameterizedListener<GameEventType,EventType,ParameterType>,EventType,ParameterType>
-        where ListenerType : ParameterizedListener<GameEventType,EventType,ParameterType>
+        where GameEventType : GameEvent<Listener<GameEventType,EventType,ParameterType>,EventType,ParameterType>
+        where ListenerType : Listener<GameEventType,EventType,ParameterType>
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
     {
         [System.Serializable]

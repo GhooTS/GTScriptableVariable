@@ -6,7 +6,7 @@ namespace GTVariable.Editor
 {
     [UnityEditor.CustomEditor(typeof(IntGameEvent))]
     public class IntGameEventEditor 
-        : ParameterizedGameEventEditor<IntListener, IntGameEvent, IntEvent, int>
+        : GameEventEditor<IntListener, IntGameEvent, IntEvent, int>
     {
 
     }

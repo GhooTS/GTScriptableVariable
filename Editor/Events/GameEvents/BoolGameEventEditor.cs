@@ -6,7 +6,7 @@ namespace GTVariable.Editor
 {
     [UnityEditor.CustomEditor(typeof(BoolGameEvent))]
     public class BoolGameEventEditor 
-        : ParameterizedGameEventEditor<BoolListener, BoolGameEvent, BoolEvent, bool>
+        : GameEventEditor<BoolListener, BoolGameEvent, BoolEvent, bool>
     {
 
     }

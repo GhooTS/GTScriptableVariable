@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GTVariable
 {
-    public class BoolListener : ParameterizedListener<BoolGameEvent, BoolEvent,bool>
+    public class BoolListener : Listener<BoolGameEvent, BoolEvent,bool>
     {
 
     }

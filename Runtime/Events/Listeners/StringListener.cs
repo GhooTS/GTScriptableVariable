@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GTVariable
 {
-    public class StringListener : ParameterizedListener<StringGameEvent, StringEvent,string>
+    public class StringListener : Listener<StringGameEvent, StringEvent,string>
     {
 
     }

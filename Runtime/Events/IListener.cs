@@ -1,6 +1,6 @@
 ﻿namespace GTVariable
 {
-    public interface IParameterizedListener<EventType,ParameterType>
+    public interface IListener<EventType, ParameterType>
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
     {
         void OnEventRised(ParameterType value);
