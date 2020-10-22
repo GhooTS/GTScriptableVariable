@@ -8,14 +8,18 @@ namespace GTVariable.Editor
 
     public static class GameEventUtility
     {
-
+        /// <summary>
+        /// Get all active and enable listener which subscribe to the target event in currently active scene
+        /// </summary>
+        /// <param name="target">target game event</param>
+        /// <param name="listeners">the list to which the found listeners will be added</param>
         public static void GetAssosiatedListenersInScene(GameEventBase target,List<Listener> listeners)
         {
             listeners.AddRange( GameObject.FindObjectsOfType<Listener>()
                                         .Where(listener => listener.GetGameEvents()
-                                        .Where(gameEvent => gameEvent == target)
-                                        .ToArray().Length > 0)
-                                        .ToList());
+                                        ?.Where(gameEvent => gameEvent == target).
+                                        ToArray().Length > 0).
+                                        ToList());
         }
 
         /// <summary>
@@ -30,7 +34,7 @@ namespace GTVariable.Editor
         {
             return GameObject.FindObjectsOfType<ListenerType>()
                     .Where(listener => listener.gameEvents
-                    .Where(gameEvent => gameEvent == target)
+                    ?.Where(gameEvent => gameEvent == target)
                     .ToArray().Length > 0)
                     .ToList();
         }
@@ -44,7 +48,7 @@ namespace GTVariable.Editor
         {
             return GameObject.FindObjectsOfType<GameEventListener>()
                     .Where(listener => listener.gameEvents
-                    .Where(gameEvent => gameEvent == target)
+                    ?.Where(gameEvent => gameEvent == target)
                     .ToArray().Length > 0)
                     .ToList();
         }
@@ -54,7 +58,6 @@ namespace GTVariable.Editor
         /// </summary>
         /// <param name="target">target game event</param>
         /// <param name="listeners">the list to which the found listeners will be added</param>
-        /// <returns></returns>
         public static void GetAssosiatedListenersInScene<ListenerType, EventType, ParameterType, GameEventType>(GameEventType target,List<ListenerType> listeners)
             where ListenerType : ParameterizedListener<GameEventType, EventType, ParameterType>
             where GameEventType : ParameterizedGameEvent<ParameterizedListener<GameEventType, EventType, ParameterType>, EventType, ParameterType>
@@ -62,7 +65,7 @@ namespace GTVariable.Editor
         {
             listeners.AddRange(GameObject.FindObjectsOfType<ListenerType>()
                                          .Where(listener => listener.gameEvents
-                                         .Where(gameEvent => gameEvent == target)
+                                         ?.Where(gameEvent => gameEvent == target)
                                          .ToArray().Length > 0)
                                          .ToList());
         }
@@ -77,7 +80,7 @@ namespace GTVariable.Editor
         {
             listeners.AddRange(GameObject.FindObjectsOfType<GameEventListener>()
                                          .Where(listener => listener.gameEvents
-                                         .Where(gameEvent => gameEvent == target)
+                                         ?.Where(gameEvent => gameEvent == target)
                                          .ToArray().Length > 0)
                                          .ToList());
         }
