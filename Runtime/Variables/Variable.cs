@@ -5,6 +5,10 @@ using UnityEngine.Events;
 
 namespace GTVariable
 {
+
+    /// <summary>
+    /// Derive from this class to create custom variable
+    /// </summary>
     [System.Serializable]
     public class Variable<T> : VariableBase
     {
@@ -25,7 +29,7 @@ namespace GTVariable
         /// <summary>
         /// Set value of this variable
         /// </summary>
-        /// <remarks>this method will also call event for event variable. If this is not intended use <seealso cref="value"/> field instead</remarks>
+        /// <remarks>This method will also call an event for event variable. If this is not intended use <seealso cref="value"/> field instead</remarks>
         public virtual void SetValue(T value)
         {
             this.value = value;

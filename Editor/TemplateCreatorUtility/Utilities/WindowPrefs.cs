@@ -24,13 +24,13 @@ namespace GTVariable.Editor.Utility
         }
 
         /// <summary>
-        /// Load save position base on editor window name
+        /// Load saved position base on editor window name
         /// </summary>
         /// <param name="windowName"></param>
         /// <returns></returns>
         public static Rect LoadPosition(string windowName)
         {
-            var output = new Rect();
+            var output = new Rect(0,0,300,300);
 
             if (EditorPrefs.HasKey($"{windowName}{xMin}")) output.xMin = EditorPrefs.GetFloat($"{windowName}{xMin}");
             if (EditorPrefs.HasKey($"{windowName}{xMax}")) output.xMax = EditorPrefs.GetFloat($"{windowName}{xMax}");

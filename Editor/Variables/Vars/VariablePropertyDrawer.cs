@@ -1,15 +1,13 @@
-﻿
-
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
-
-
 
 
 namespace GTVariable.Editor
 {
 
-
+    /// <summary>
+    /// Derive from this class to create custom variable property drawer
+    /// </summary>
     public class VariablePropertyDrawer : PropertyDrawer
     {
         protected VariableInlineDrawer inlineDrawer = new VariableInlineDrawer();

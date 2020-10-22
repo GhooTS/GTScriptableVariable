@@ -4,6 +4,9 @@ using UnityEngine.Events;
 
 namespace GTVariable
 {
+    /// <summary>
+    /// Zero argument game event listener
+    /// </summary>
     public class GameEventListener : Listener
     {
         /// <summary>

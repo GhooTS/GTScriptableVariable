@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace GTVariable
 {
+    /// <summary>
+    /// Derive from this class to create custom reference variable
+    /// </summary>
     [System.Serializable]
     public class ReferenceVariable<T, VariableType> where VariableType : Variable<T>
     {

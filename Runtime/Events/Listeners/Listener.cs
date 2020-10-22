@@ -4,6 +4,9 @@ using UnityEngine.Events;
 
 namespace GTVariable
 {
+    /// <summary>
+    /// Base class for all listener
+    /// </summary>
     public abstract class Listener : MonoBehaviour
     {
         public string listenerName;

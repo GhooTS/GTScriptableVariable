@@ -5,6 +5,9 @@ using UnityEditorInternal;
 
 namespace GTVariable.Editor
 {
+    /// <summary>
+    /// Derive from this class to create editor for custom listener
+    /// </summary>
     [CustomEditor(typeof(GameEventListener))]
     public class ListenerEditor : EditorGroup<Listener>
     {

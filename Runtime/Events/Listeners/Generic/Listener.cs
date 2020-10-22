@@ -4,6 +4,10 @@ using UnityEngine.Events;
 
 namespace GTVariable
 {
+
+    /// <summary>
+    /// Derive from this class to create custom one argument listener
+    /// </summary>
     public abstract class Listener<GameEventType, EventType, ParameterType> : Listener, IListener<EventType, ParameterType>
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
         where GameEventType : GameEvent<Listener<GameEventType, EventType, ParameterType>, EventType, ParameterType>

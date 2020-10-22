@@ -7,6 +7,9 @@ using UnityEngine;
 namespace GTVariable
 {
 
+    /// <summary>
+    /// Zero argument game event
+    /// </summary>
     [CreateAssetMenu(menuName = "ScriptableVars/Events/Event")]
     public class GameEvent : GameEventBase
     {

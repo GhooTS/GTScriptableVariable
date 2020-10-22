@@ -6,7 +6,7 @@ namespace GTVariable.Editor.Utility
     public static class FileFromTemplate
     {
         /// <summary>
-        /// Create file from template and repace text in the file base on the pattern
+        /// Create file from template and replace text in the file base on the pattern
         /// </summary>
         /// <param name="templatePath">Absolute path to the template</param>
         /// <param name="folderPath">Absolute path to a folder in which file will be created</param>

@@ -1,20 +1,12 @@
-﻿
-// ----------------------------------------------------------------------------
-// Unite 2017 - Game Architecture with Scriptable Objects
-// 
-// Author: Ryan Hipple
-// Date:   10/04/17
-// ----------------------------------------------------------------------------
-
-
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
-
-
 
 
 namespace GTVariable.Editor
 {
+    /// <summary>
+    /// Derive from this class to create custom variable property drawer
+    /// </summary>
     public class VariableInlineDrawer
     {
         public enum PropertyPosition

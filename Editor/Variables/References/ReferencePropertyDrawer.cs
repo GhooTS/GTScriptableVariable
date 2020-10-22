@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace GTVariable.Editor
 {
+
+    /// <summary>
+    /// Derive from this class to create custom reference property drawer
+    /// </summary>
     public class ReferencePropertyDrawer : PropertyDrawer
     {
 
