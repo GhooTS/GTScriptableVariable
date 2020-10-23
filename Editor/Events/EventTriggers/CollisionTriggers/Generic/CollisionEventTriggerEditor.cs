@@ -54,7 +54,8 @@ namespace GTVariable.Editor
             }
             else
             {
-
+                property = trigger.FindPropertyRelative("parameter");
+                EditorGUILayout.PropertyField(property);
             }
         }
     }
