@@ -11,11 +11,6 @@ namespace GTVariable.Editor
     public class VariablePropertyDrawer : PropertyDrawer
     {
         protected VariableInlineDrawer inlineDrawer = new VariableInlineDrawer();
-        private bool initalize = false;
-        protected virtual void Init()
-        {
-            inlineDrawer.inlineWidth = 60f;
-        }
 
         public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
         {
@@ -24,28 +19,12 @@ namespace GTVariable.Editor
 
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
-
-            if (initalize == false)
-            {
-                Init();
-                initalize = true;
-            }
-
-            var hasObjectReference = property.objectReferenceValue != null;
-            Rect inlinePosition = Rect.zero;
-
+            inlineDrawer.Update(property);
+            inlineDrawer.DrawWrapper(ref position);
+            Rect inlinePosition = inlineDrawer.Reserve(ref position);
             EditorGUI.BeginChangeCheck();
-
-            if (hasObjectReference) inlinePosition = inlineDrawer.Reserve(ref position);
-
-            position = EditorGUI.PrefixLabel(position,label);
-            EditorGUI.PropertyField(position, property,GUIContent.none);
-            if (EditorGUI.EndChangeCheck())
-            {
-                inlineDrawer.Update(property);
-            }
-
-            if(hasObjectReference) inlineDrawer.DrawProperty(property, inlinePosition);
+            EditorGUI.PropertyField(position, property);
+            inlineDrawer.DrawProperty(property,inlinePosition);
         }
     }
 }

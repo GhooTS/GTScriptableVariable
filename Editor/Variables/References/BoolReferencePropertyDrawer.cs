@@ -3,7 +3,7 @@
 namespace GTVariable.Editor
 {
     [CustomPropertyDrawer(typeof(BoolReference))]
-    public class BoolReferencePropertyDrawer : ReferencePropertyDrawer
+    public class BoolReferencePropertyDrawer : ReferencePropertyDrawer<BoolVariable,bool>
     {
 
     }

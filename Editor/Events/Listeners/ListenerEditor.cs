@@ -74,11 +74,11 @@ namespace GTVariable.Editor
             EditorGUILayout.BeginVertical(gameEventStyle);
             if(gameEvents.arraySize == 0)
             {
-                EditorGUILayout.LabelField("List is Empty");
+                EditorGUILayout.LabelField("List is Empty",GUILayout.MinHeight(EditorGUIUtility.singleLineHeight + 1));
             }
             for (int i = 0; i < gameEvents.arraySize; i++)
             {
-                EditorGUILayout.BeginHorizontal(GUILayout.MinHeight(EditorGUIUtility.singleLineHeight + 3));
+                EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PropertyField(gameEvents.GetArrayElementAtIndex(i),GUIContent.none);
                 if (GUILayout.Button(minusIcon, plusButtonStyle, GUILayout.MaxWidth(20)))
                 {

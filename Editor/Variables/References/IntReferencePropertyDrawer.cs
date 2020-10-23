@@ -3,7 +3,7 @@
 namespace GTVariable.Editor
 {
     [CustomPropertyDrawer(typeof(IntReference))]
-    public class IntReferencePropertyDrawer : ReferencePropertyDrawer
+    public class IntReferencePropertyDrawer : ReferencePropertyDrawer<IntVariable, int>
     {
 
     }

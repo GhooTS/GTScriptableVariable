@@ -3,7 +3,7 @@
 namespace GTVariable.Editor
 {
     [CustomPropertyDrawer(typeof(FloatReference))]
-    public class FloatReferencePropertyDrawer : ReferencePropertyDrawer
+    public class FloatReferencePropertyDrawer : ReferencePropertyDrawer<FloatVariable, float>
     {
 
     }

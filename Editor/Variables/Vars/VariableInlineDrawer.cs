@@ -9,69 +9,57 @@ namespace GTVariable.Editor
     /// </summary>
     public class VariableInlineDrawer
     {
-        public enum PropertyPosition
-        {
-            Inline,
-            Under
-        }
+        public RectOffset wrapperPadding = new RectOffset(-5, -5, -7, -7);
+        private SerializedProperty valueProp;
+        private SerializedObject serializedObject;
 
-        public PropertyPosition propertyPosition;
-        public float inlineWidth = 60f;
-        public float inlineSpace = 5f;
-        SerializedProperty valueProp;
-        SerializedObject serializedObject;
-
-        public VariableInlineDrawer(PropertyPosition propertyPosition = PropertyPosition.Inline)
+        public bool HasProperty()
         {
-            this.propertyPosition = propertyPosition;
+            return serializedObject != null;
         }
 
         public void Update(SerializedProperty property)
         {
-            if (property.objectReferenceValue != null)
+            if (property.objectReferenceValue != null && (HasProperty() == false || serializedObject.targetObject != property.objectReferenceValue))
             {
                 serializedObject = new SerializedObject(property.objectReferenceValue);
+                valueProp = serializedObject.FindProperty("value");
             }
         }
 
         public Rect Reserve(ref Rect position)
         {
-            if (valueProp == null) return Rect.zero;
+            if (HasProperty() == false) return Rect.zero;
 
             position.height = EditorGUIUtility.singleLineHeight;
             var output = new Rect(position);
-            switch (propertyPosition)
-            {
-                case PropertyPosition.Inline:
-                    output.xMin = output.xMax - inlineWidth;
-                    position.width -= output.width + inlineSpace;
-                    break;
-                case PropertyPosition.Under:
-                    output.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
-                    output.height = EditorGUI.GetPropertyHeight(valueProp);
-                    break;
-                default:
-                    break;
-            }
-           
-            
+            output.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
+            output.height = EditorGUI.GetPropertyHeight(valueProp);
             return output;
         }
 
-        public Rect DrawProperty(SerializedProperty property,Rect position)
+        public void DrawWrapper(ref Rect position)
         {
-            if (property.serializedObject != null)
+            if (HasProperty() == false) return;
+            GUI.Box(position, GUIContent.none, EditorStyles.helpBox);
+            position = wrapperPadding.Add(position);
+        }
+
+        public void DrawProperty(SerializedProperty property, Rect position)
+        {
+            if (HasProperty() == false) return;
+
+            if (property.objectReferenceValue != null)
             {
                 if (serializedObject == null)
                 {
-                    serializedObject = new SerializedObject(property.objectReferenceValue);
+                    Update(property);
                 }
-                valueProp = serializedObject.FindProperty("value");
 
-                serializedObject.Update();
+                serializedObject.UpdateIfRequiredOrScript();
 
                 EditorGUI.BeginChangeCheck();
-                EditorGUI.PropertyField(position, valueProp, GUIContent.none);
+                EditorGUI.PropertyField(position, valueProp);
                 if (EditorGUI.EndChangeCheck())
                 {
                     serializedObject.ApplyModifiedProperties();
@@ -82,21 +70,11 @@ namespace GTVariable.Editor
                 serializedObject = null;
                 valueProp = null;
             }
-
-            return position;
         }
 
         public float GetHeight()
         {
-            switch (propertyPosition)
-            {
-                case PropertyPosition.Inline:
-                    return 0;
-                case PropertyPosition.Under:
-                    return valueProp != null ? EditorGUI.GetPropertyHeight(valueProp) + EditorGUIUtility.standardVerticalSpacing : 0;
-                default:
-                    return 0;
-            }
+            return HasProperty() ? EditorGUI.GetPropertyHeight(valueProp) + EditorGUIUtility.standardVerticalSpacing - wrapperPadding.vertical : 0;
         }
     }
 }
