@@ -3,7 +3,7 @@
 namespace GTVariable.Editor
 {
     [CustomEditor(typeof(FloatListener))]
-    internal class FloatListenerEditor : ListenerEditor
+    public class FloatListenerEditor : ListenerEditor
     {
         
     }

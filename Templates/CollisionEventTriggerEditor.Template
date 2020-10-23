@@ -1,0 +1,13 @@
+﻿using UnityEngine;
+using UnityEditor;
+*nameSpace*
+
+
+namespace GTVariable.Editor
+{
+    [CustomEditor(typeof(*className*CollisionEventTrigger))]
+    public class *className*CollisionEventTriggerEditor : CollisionEventTriggerEditor<*className*GameEvent, *className*Listener, *className*Event, *typeName*>
+    {
+
+    }
+}

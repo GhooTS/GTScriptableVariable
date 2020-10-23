@@ -1,0 +1,12 @@
+﻿using UnityEditor;
+using UnityEngine;
+*nameSpace*
+
+namespace GTVariable.Editor
+{
+    [CustomEditor(typeof(*className*EventTrigger))]
+    public class *className*EventTriggerEditor : EventTriggerEditor<*className*GameEvent, *className*Listener, *className*Event, *typeName*>
+    {
+
+    }
+}

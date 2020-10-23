@@ -3,7 +3,7 @@
 
 namespace GTVariable
 {
-    public class *className*Listener : ParameterizedListener<*className*GameEvent, *className*Event,*typeName*>
+    public class *className*Listener : Listener<*className*GameEvent, *className*Event,*typeName*>
     {
 
     }

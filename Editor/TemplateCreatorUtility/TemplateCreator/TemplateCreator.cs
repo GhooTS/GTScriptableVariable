@@ -40,9 +40,11 @@ namespace GTVariable.Editor.Utility
                 DeleteAll(rootFolderRelativePath);
             }
 
-            GUI.enabled = enabled;
+            
 
             EditorGUILayout.EndHorizontal();
+
+            if (items == null) return;
 
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
@@ -51,6 +53,7 @@ namespace GTVariable.Editor.Utility
                 DrawModifyOption(i, rootFolderRelativePath, textPatterns);
             }
             EditorGUILayout.EndVertical();
+            GUI.enabled = enabled;
             previewScrollVector = EditorGUILayout.BeginScrollView(previewScrollVector);
             enabled = GUI.enabled;
             GUI.enabled = false;
@@ -182,6 +185,8 @@ namespace GTVariable.Editor.Utility
 
         public void UpdateNames(string name, bool useTemplateNameAsAffix = true)
         {
+            if (items == null) return;
+
             foreach (var item in items)
             {
                 item.Template.SetName(name, useTemplateNameAsAffix);

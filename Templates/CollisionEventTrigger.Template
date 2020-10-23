@@ -1,0 +1,10 @@
+﻿using UnityEngine;
+*nameSpace*
+
+namespace GTVariable
+{
+    public class *className*CollisionEventTrigger : CollisionEventTrigger<*className*GameEvent, *className*Listener, *className*Event, *typeName*>
+    {
+
+    }
+}

@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEngine;
 
 namespace GTVariable.Editor
 {
@@ -17,17 +18,25 @@ namespace GTVariable.Editor
         protected override void OnEnable()
         {
             base.OnEnable();
-            //Check if parameter type derive from Object and don't derive from Scritpable object
-            dynamicParameterValid = typeof(UnityEngine.Object).IsAssignableFrom(typeof(ParameterType)) 
-                                 && !typeof(UnityEngine.ScriptableObject).IsAssignableFrom(typeof(ParameterType));
+            //Check if parameter type derive from Component
+            dynamicParameterValid = typeof(UnityEngine.Component).IsAssignableFrom(typeof(ParameterType));
         }
 
 
         protected override void DrawTrigger()
         {
-            base.DrawTrigger();
-            property = trigger.FindPropertyRelative("parameter");
+            property = trigger.FindPropertyRelative("any");
             EditorGUILayout.PropertyField(property);
+            if (property.boolValue == false)
+            {
+                property = trigger.FindPropertyRelative("tag");
+                property.stringValue = EditorGUILayout.TagField(property.displayName, property.stringValue);
+            }
+            property = trigger.FindPropertyRelative("gameEvent");
+            EditorGUILayout.PropertyField(property);
+            property = trigger.FindPropertyRelative("eventType");
+            EditorGUILayout.PropertyField(property);
+            
             if (dynamicParameterValid)
             {
                 property = trigger.FindPropertyRelative("dynamicParameter");
@@ -37,6 +46,15 @@ namespace GTVariable.Editor
                     property = trigger.FindPropertyRelative("behaviour");
                     EditorGUILayout.PropertyField(property);
                 }
+                else
+                {
+                    property = trigger.FindPropertyRelative("parameter");
+                    EditorGUILayout.PropertyField(property);
+                }
+            }
+            else
+            {
+
             }
         }
     }

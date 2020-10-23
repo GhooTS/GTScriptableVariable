@@ -4,7 +4,7 @@ using UnityEditor;
 namespace GTVariable.Editor
 {
     [CustomEditor(typeof(BoolListener))]
-    internal class BoolListenerEditor : ListenerEditor
+    public class BoolListenerEditor : ListenerEditor
     {
         
     }

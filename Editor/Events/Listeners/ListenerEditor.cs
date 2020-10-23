@@ -9,7 +9,7 @@ namespace GTVariable.Editor
     /// Derive from this class to create editor for custom listener
     /// </summary>
     [CustomEditor(typeof(GameEventListener))]
-    internal class ListenerEditor : EditorGroup<Listener>
+    public class ListenerEditor : EditorGroup<Listener>
     {
         SerializedProperty listenerName;
         SerializedProperty listenerDescription;

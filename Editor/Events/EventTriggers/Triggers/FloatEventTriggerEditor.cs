@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEngine;
 
 namespace GTVariable.Editor
 {
@@ -7,5 +8,4 @@ namespace GTVariable.Editor
     {
 
     }
-
 }
