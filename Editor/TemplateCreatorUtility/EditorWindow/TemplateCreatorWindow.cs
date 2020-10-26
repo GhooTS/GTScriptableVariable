@@ -42,10 +42,10 @@ namespace GTVariable.Editor.Utility
         new VariableCreator()
         };
 
-        [MenuItem("Window/ScriptableVars/Templates Creator")]
-        public static void Init()
+        [MenuItem("Tools/Class Creator")]
+        public static void Init() 
         {
-            var window = GetWindow<TemplateCreatorWindow>("Templates Creator");
+            var window = GetWindow<TemplateCreatorWindow>("Class Creator");
             WindowPrefs.SavePosition(window.titleContent.text, window.position);
         }
 
