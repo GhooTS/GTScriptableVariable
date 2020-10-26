@@ -10,7 +10,7 @@ namespace GTVariable.Editor
         {
             Component = component;
             SerializedObject = new SerializedObject(component);
-            Foldout = false;
+            foldout = SessionState.GetBool($"EditorElement_{component.GetInstanceID()}", false);
             SetName(name, useDefaultNameIfEmpty);
         }
 
@@ -19,7 +19,17 @@ namespace GTVariable.Editor
         public SerializedObject SerializedObject { get; set; }
         public bool Attach { get; private set; }
         public bool ShouldBeDetach { get; set; } = false;
-        public bool Foldout { get; set; }
+        public bool Foldout 
+        { 
+            get { return foldout; }
+            set
+            {
+                foldout = value;
+                if (foldout) SessionState.SetBool($"EditorElement_{Component.GetInstanceID()}", foldout);
+                else SessionState.EraseBool($"EditorElement_{Component.GetInstanceID()}");
+            } 
+        }
+        private bool foldout;
         public bool Enabled 
         { 
             get { return Component.enabled; } 
@@ -59,6 +69,11 @@ namespace GTVariable.Editor
         public void Update()
         {
             SerializedObject.Update();
+        }
+
+        public void OnDestroy()
+        {
+            SessionState.EraseBool($"EditorElement_{Component.GetInstanceID()}");
         }
 
         public void ApplyModifiedProperties()

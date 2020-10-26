@@ -131,6 +131,7 @@ namespace GTVariable.Editor
             {
                 for (int i = elements.Count - 1; i >= 0; i--)
                 {
+                    elements[i].OnDestroy();
                     Undo.DestroyObjectImmediate(elements[i].Component);
                     elements.RemoveAt(i);
                 }
@@ -299,6 +300,7 @@ namespace GTVariable.Editor
         {
             int id = (int)index;
             elements[id].SetAttach(false);
+            elements[id].OnDestroy();
             Undo.DestroyObjectImmediate(elements[id].Component);
             elements.RemoveAt(id);
         }
