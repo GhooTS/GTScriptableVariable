@@ -102,7 +102,7 @@ namespace GTVariable.Editor
             if (string.IsNullOrEmpty(name)) name = "[No name specify]";
 
 
-            GUILayout.Box(name, GUILayout.ExpandWidth(true));
+            GUILayout.Box(new GUIContent(name,listeners[i].listenerDescription), GUILayout.ExpandWidth(true));
             var enabled = GUI.enabled;
             GUI.enabled = false;
             EditorGUILayout.ObjectField("Listener", listeners[i], listeners[i].GetType(), true);

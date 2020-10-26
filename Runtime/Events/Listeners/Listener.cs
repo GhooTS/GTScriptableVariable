@@ -12,7 +12,7 @@ namespace GTVariable
         public string listenerName;
         [TextArea]
         [SerializeField]
-        private string listenerDescription;
+        public string listenerDescription;
 
         public abstract void OnEventRised();
         public abstract UnityEventBase GetResponse();
