@@ -8,6 +8,11 @@ namespace GTVariable.Editor
     public class IntGameEventEditor 
         : GameEventEditor<IntListener, IntGameEvent, IntEvent, int>
     {
-
+        public override void DrawParameter()
+        {
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            parameter = EditorGUILayout.IntField("Parameter", parameter);
+            EditorGUILayout.EndVertical();
+        }
     }
 }

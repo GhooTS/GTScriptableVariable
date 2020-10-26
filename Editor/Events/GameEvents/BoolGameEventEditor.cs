@@ -8,6 +8,11 @@ namespace GTVariable.Editor
     public class BoolGameEventEditor 
         : GameEventEditor<BoolListener, BoolGameEvent, BoolEvent, bool>
     {
-
+        public override void DrawParameter()
+        {
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            parameter = EditorGUILayout.Toggle("Parameter", parameter);
+            EditorGUILayout.EndVertical();
+        }
     }
 }
