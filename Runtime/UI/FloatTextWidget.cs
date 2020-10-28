@@ -2,7 +2,7 @@
 
 namespace GTVariable
 {
-    public class TextFloatValueUpdater : TextValueUpdater<FloatVariable, float>
+    public class FloatTextWidget : TextWidget<FloatVariable, float>
     {
         public bool rounded;
 

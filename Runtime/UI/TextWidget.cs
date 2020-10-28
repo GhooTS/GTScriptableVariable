@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GTVariable
 {
-    public class TextValueUpdater<T, N> : MonoBehaviour
+    public class TextWidget<T, N> : MonoBehaviour
         where T : Variable<N>
     {
         public string prefix;
@@ -12,9 +12,12 @@ namespace GTVariable
         public TextMeshProUGUI textControl;
         public bool updateOnEnable;
 
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
-            OnEnableBase();
+            if (updateOnEnable)
+            {
+                UpdateValue();
+            }
         }
 
         public void UpdateValue()
@@ -39,14 +42,6 @@ namespace GTVariable
         protected virtual string GetValue()
         {
             return $"{value.value}";
-        }
-
-        protected void OnEnableBase()
-        {
-            if (updateOnEnable)
-            {
-                UpdateValue();
-            }
         }
     }
 }
