@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace GTVariable.Editor
 {
+
     /// <summary>
     /// Derive from this class to create custom variable property drawer
     /// </summary>
@@ -34,7 +35,7 @@ namespace GTVariable.Editor
             position.height = EditorGUIUtility.singleLineHeight;
             var output = new Rect(position);
             output.y += EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
-            output.height = EditorGUI.GetPropertyHeight(valueProp);
+            output.height = EditorGUI.GetPropertyHeight(valueProp, GUIContent.none);
             return output;
         }
 

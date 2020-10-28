@@ -1,7 +1,4 @@
-﻿
-
-using UnityEngine;
-using UnityEngine.Events;
+﻿using UnityEngine.Events;
 
 namespace GTVariable
 {
