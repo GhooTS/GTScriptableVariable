@@ -17,19 +17,19 @@ This repository is based on Ryan Hipple Talk about [Game Architecture with Scrip
 ## Variables
   `Variables` are wrappers for any type of data (preferable value type), the purpose of `Variables` is to decouple data from system, so other systems can access this data without need to know the source of the data. All `Variables` derived from scriptable object.
  
-  `Event Variables` are like normal variable with addition option for rasing game event whenever variable is chanaged throught SetValue method.
+  `Event Variables` are like normal variable with addition option for raising game event whenever variable is changed through `SetValue` method.
   
    use `Reference Varaible` as a field whenever you don't know whether the class should use `variable` or constant. 
   
-   use `ReadOnly Variable` as a field whenever you need access the value of `Variable`, but you don't want to chanage it.
+   use `ReadOnly Variable` as a field whenever you need access the value of `Variable`, but you don't want to change it.
   
-  By defualt there are 4 diffrent variables for `int`, `float`, `bool` and `string`. That include `Variable`, `Event Variable`, `Reference Variable`, and `Readonly Variable` for those types.
+  By default there are 4 different variables for `int`, `float`, `bool` and `string`. That include `Variable`, `Event Variable`, `Reference Variable`, and `Readonly Variable` for those types.
   
   You can create more variable types with [Class Creator](class-creator) or from code.
   
   
 ### Creating variables and event variables
-All `Variables` and `Event Variables` can be create from project context mene
+All `Variables` and `Event Variables` can be create from project context menu
 > Variables path : Create > ScriptableVars > Vars
 
 > Event variables path : Create > ScriptableVars > EventVars
@@ -37,7 +37,7 @@ All `Variables` and `Event Variables` can be create from project context mene
 ## Game Events
   Game events are scriptable objects that can be raise from code or by UnityEvent in editor. Every game event contain list of listeners which will be call whenever event is raise. The purpose of game event is to decouple event caller from event receiver. 
   
-  By defualt there are 5 diffrent `Game Events` for each `Game Event` there is corresponding `Listener`. The zero argument `Listener` can subscribe to any type of `Game Event`.
+  By default there are 5 different `Game Events` for each `Game Event` there is corresponding `Listener`. The zero argument `Listener` can subscribe to any type of `Game Event`.
   >* GameEvent
   >* IntGameEvent
   >* FloatGameEvent
@@ -47,7 +47,7 @@ All `Variables` and `Event Variables` can be create from project context mene
   You can create more game event types with [Class Creator](class-creator) or from code.
   
 ### Creating game events
-All `Game Events` can be create from project context mene
+All `Game Events` can be create from project context menu
 > Variables path : Create > ScriptableVars > Events
 
 ## Game Event Triggers
@@ -70,13 +70,13 @@ All `Game Events` can be create from project context mene
   >* OnCollisionExit2D
   >* OnCollisionExit
   
-  `Collision Event Triggers` support dynamic parameter for parameteres which type derived from `Component`, like `ParticleSystem` or `Rigidbody`. If dynamic parameter is tick then `Game Event` will be call with component attached to the `gameobject` which trigger on of the unity physic events. If the component is not present then one of the following think happend dependes on choosed behaviour:
+  `Collision Event Triggers` support dynamic parameter for parameters which type derived from `Component`, like `ParticleSystem` or `Rigidbody`. If dynamic parameter is tick then `Game Event` will be call with component attached to the `gameobject` which trigger on of the unity physic events. If the component is not present then one of the following think happen, depends on chosen behavior:
   >* StopOnNull - won't trigger event if component is null
   >* TriggerWithDefualt - will trigger event with component set in editor
   >* TriggerWithNull - will trigger event passing null as the argument
   
 ## Dynamic Collections
-  `Dynamic Collections` are wrappers for List of `Components` or `Game Objects` the purpose of `Dynamic Collections` is to decouple the way of collecting `Components` or `Game Objects` from the systems that require thoses `Components`/`Game Objects`. 
+  `Dynamic Collections` are wrappers for List of `Components` or `Game Objects` the purpose of `Dynamic Collections` is to decouple the way of collecting `Components` or `Game Objects` from the systems that require those `Components`/`Game Objects`. 
   
   By defualt there is only `GameObjectCollection`, which can contain `Game Objects`
   
