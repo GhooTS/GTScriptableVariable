@@ -1,4 +1,5 @@
-﻿using UnityEngine.Events;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 namespace GTVariable
 {
@@ -13,6 +14,11 @@ namespace GTVariable
         /// Value of this variable
         /// </summary>
         public T value;
+
+        [SerializeField]
+        private UnityEvent onValueChanaged;
+
+        public UnityEvent OnValueChanaged => onValueChanaged;
 
 
         /// <summary>
@@ -30,6 +36,8 @@ namespace GTVariable
         public virtual void SetValue(T value)
         {
             this.value = value;
+
+            onValueChanaged?.Invoke();
         }
 
         public static implicit operator T(Variable<T> genericVariable)

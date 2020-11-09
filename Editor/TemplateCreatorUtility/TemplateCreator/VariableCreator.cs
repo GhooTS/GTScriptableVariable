@@ -10,7 +10,7 @@ namespace GTVariable.Editor.Utility
         public override void Init(string templatePath, string runtimeFolder, string editorFolder)
         {
             CreatorName = "Variable Creator";
-            SetSize(5);
+            SetSize(4);
 
             //Variable templates
             var varsFolder = "Variables/Vars";
@@ -27,26 +27,18 @@ namespace GTVariable.Editor.Utility
                 Dependence = true
             };
 
-            var eventVarsFolder = "Variables/EventVars";
-            items[2] = new TemplateCreatorItem
-            {
-                Template = new FileTemplate($"{templatePath}/", "EventVariable", $"{runtimeFolder}/{eventVarsFolder}", "", "cs"),
-                DependenceIndex = 0,
-                Dependence = true
-            };
-
             //Reference templates
             var referenceFolder = "Variables/References";
-            items[3] = new TemplateCreatorItem
+            items[2] = new TemplateCreatorItem
             {
                 Template = new FileTemplate($"{templatePath}/", "Reference", $"{runtimeFolder}/{referenceFolder}", "", "cs")
 
             };
 
-            items[4] = new TemplateCreatorItem
+            items[3] = new TemplateCreatorItem
             {
                 Template = new FileTemplate($"{templatePath}/", "ReferencePropertyDrawer", $"{editorFolder}/{referenceFolder}", "", "cs"),
-                DependenceIndex = 3,
+                DependenceIndex = 2,
                 Dependence = true
             };
             UpdateNames("");

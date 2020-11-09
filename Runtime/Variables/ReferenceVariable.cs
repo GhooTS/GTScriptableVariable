@@ -39,8 +39,24 @@ namespace GTVariable
                 }
                 else
                 {
-                    variable.SetValue(value);
+                    variable.value = value;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Use this method over <seealso cref="Value"/> property to raise <seealso cref="Variable{T}.onValueChanaged"/> event for variable
+        /// </summary>
+        /// <param name="value"></param>
+        public void SetValue(T value)
+        {
+            if (useConstant)
+            {
+                constantValue = value;
+            }
+            else
+            {
+                variable.SetValue(value);
             }
         }
 
