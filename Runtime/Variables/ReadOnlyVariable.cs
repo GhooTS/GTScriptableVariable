@@ -1,6 +1,7 @@
 ﻿
 
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GTVariable
 {
@@ -10,6 +11,7 @@ namespace GTVariable
     {
         [SerializeField]
         private VariableType variable;
+        public UnityEvent OnValueChanaged => variable.OnValueChanaged;
 
         public ReadOnlyVariable(VariableType variable)
         {
