@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Events;
+using System.Linq;
 
 namespace GTVariable
 {
@@ -60,7 +61,7 @@ namespace GTVariable
 
         public override List<GameEventBase> GetGameEvents()
         {
-            return gameEvents as List<GameEventBase>;
+            return gameEvents.ToList<GameEventBase>();
         }
     }
 }
