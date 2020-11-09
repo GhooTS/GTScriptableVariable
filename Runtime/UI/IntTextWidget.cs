@@ -1,6 +1,6 @@
 ﻿namespace GTVariable
 {
-    public class IntTextWidget : TextWidget<IntVariable, int>
+    public class IntTextWidget : TextWidget<ReadOnlyIntVariable,IntVariable, int>
     {
 
     }

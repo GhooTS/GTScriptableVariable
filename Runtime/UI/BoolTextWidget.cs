@@ -3,7 +3,7 @@
 namespace GTVariable
 {
 
-    public class BoolTextWidget : TextWidget<BoolVariable, bool>
+    public class BoolTextWidget : TextWidget<ReadOnlyBoolVariable,BoolVariable, bool>
     {
         [Tooltip("Text that appear if value was true")]
         public StringReference trueValue;
@@ -12,7 +12,7 @@ namespace GTVariable
 
         protected override string GetValue()
         {
-            return value.value ? trueValue : falseValue;
+            return value.GetValue() ? trueValue : falseValue;
         }
     }
 }
