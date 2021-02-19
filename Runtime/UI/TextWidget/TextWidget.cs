@@ -15,9 +15,9 @@ namespace GTVariable
         public TextMeshProUGUI textControl;
         [Tooltip("If tick, text control will be update on enable")]
         public bool updateOnEnable;
-        [Tooltip("If tick, text control will be updated whenever variable OnValueChanged event is raised")]
+        [Tooltip("In which mode widget should operated")]
         [SerializeField]
-        private bool autoUpdate;
+        private UpdateMode updateMode = UpdateMode.Event;
 
         protected virtual void OnEnable()
         {
@@ -25,7 +25,7 @@ namespace GTVariable
             {
                 UpdateValue();
             }
-            if (autoUpdate)
+            if (updateMode == UpdateMode.Event)
             {
                 value?.OnValueChanaged.AddListener(UpdateValue);
             }
@@ -33,9 +33,17 @@ namespace GTVariable
 
         private void OnDisable()
         {
-            if (autoUpdate)
+            if (updateMode == UpdateMode.Event)
             {
                 value?.OnValueChanaged.RemoveListener(UpdateValue);
+            }
+        }
+
+        private void Update()
+        {
+            if (updateMode == UpdateMode.Update)
+            {
+                UpdateValue();
             }
         }
 
