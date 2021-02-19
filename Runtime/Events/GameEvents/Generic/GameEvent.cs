@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using UnityEngine.Events;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -8,11 +8,20 @@ namespace GTVariable
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
         where ListenerType : Listener,IListener<EventType, ParameterType>
     {
+        /// <summary>
+        /// List of listeners that subscirbe to this game event
+        /// </summary>
         public List<ListenerType> EventListners { get { return eventListners; } }
+
+        /// <summary>
+        /// This action is invoke whenever game event is Raise 
+        /// </summary>
+        public UnityAction<ParameterType> OnEventRaise { get; private set; }
         protected readonly List<ListenerType> eventListners = new List<ListenerType>();
 
         public void Raise(ParameterType value)
         {
+            OnEventRaise?.Invoke(value);
             for (int i = eventListners.Count - 1; i >= 0; i--)
             {
                 eventListners[i].OnEventRised(value);
