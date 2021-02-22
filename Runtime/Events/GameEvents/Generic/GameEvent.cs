@@ -16,12 +16,12 @@ namespace GTVariable
         /// <summary>
         /// This action is invoke whenever game event is Raise 
         /// </summary>
-        public UnityAction<ParameterType> OnEventRaise { get; private set; }
+        public UnityAction<ParameterType> OnEventRaised { get; set; }
         protected readonly List<ListenerType> eventListners = new List<ListenerType>();
 
         public void Raise(ParameterType value)
         {
-            OnEventRaise?.Invoke(value);
+            OnEventRaised?.Invoke(value);
             for (int i = eventListners.Count - 1; i >= 0; i--)
             {
                 eventListners[i].OnEventRised(value);
