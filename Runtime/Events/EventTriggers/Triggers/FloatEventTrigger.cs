@@ -1,6 +1,6 @@
 ﻿namespace GTVariable
 {
-    public class FloatEventTrigger : EventTrigger<FloatGameEvent, FloatListener, FloatEvent, float>
+    public class FloatEventTrigger : EventTrigger<FloatGameEvent, FloatEvent, float>
     {
 
     }

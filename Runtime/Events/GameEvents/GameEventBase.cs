@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GTVariable
 {
@@ -8,8 +9,23 @@ namespace GTVariable
         [TextArea]
         [SerializeField]
         private string description;
+        /// <summary>
+        /// This action is invoke whenever game event is Raise 
+        /// </summary>
+        public UnityAction OnEventRaised { get; set; }
 
-        public abstract void RegisterListener(Listener listner);
-        public abstract void UnRegisterListener(Listener listner);
+
+        public static GameEventBase operator +(GameEventBase gameEvent,UnityAction action)
+        {
+            gameEvent.OnEventRaised += action;
+            return gameEvent;
+        }
+
+
+        public static GameEventBase operator -(GameEventBase gameEvent, UnityAction action)
+        {
+            gameEvent.OnEventRaised -= action;
+            return gameEvent;
+        }
     }
 }

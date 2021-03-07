@@ -6,7 +6,7 @@ namespace GTVariable.Editor
 {
     [UnityEditor.CustomEditor(typeof(IntGameEvent))]
     public class IntGameEventEditor 
-        : GameEventEditor<IntListener, IntGameEvent, IntEvent, int>
+        : GameEventEditor<IntGameEvent, IntEvent, int>
     {
         public override void DrawParameter()
         {

@@ -6,7 +6,7 @@ using UnityEditor;
 namespace GTVariable.Editor
 {
     [CustomEditor(typeof(*className*CollisionEventTrigger))]
-    public class *className*CollisionEventTriggerEditor : CollisionEventTriggerEditor<*className*GameEvent, *className*Listener, *className*Event, *typeName*>
+    public class *className*CollisionEventTriggerEditor : CollisionEventTriggerEditor<*className*GameEvent, *className*Event, *typeName*>
     {
 
     }

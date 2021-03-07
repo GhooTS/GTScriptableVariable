@@ -29,7 +29,7 @@ namespace GTVariable.Editor
         /// <returns></returns>
         public static List<ListenerType> GetAssosiatedListenersInScene<ListenerType,EventType,ParameterType,GameEventType>(GameEventType target)
             where ListenerType : Listener<GameEventType,EventType,ParameterType>
-            where GameEventType : GameEvent<Listener<GameEventType, EventType, ParameterType>, EventType,ParameterType>
+            where GameEventType : GameEvent<EventType,ParameterType>
             where EventType : UnityEngine.Events.UnityEvent<ParameterType>
         {
             return GameObject.FindObjectsOfType<ListenerType>()
@@ -60,7 +60,7 @@ namespace GTVariable.Editor
         /// <param name="listeners">the list to which the found listeners will be added</param>
         public static void GetAssosiatedListenersInScene<ListenerType, EventType, ParameterType, GameEventType>(GameEventType target,List<ListenerType> listeners)
             where ListenerType : Listener<GameEventType, EventType, ParameterType>
-            where GameEventType : GameEvent<Listener<GameEventType, EventType, ParameterType>, EventType, ParameterType>
+            where GameEventType : GameEvent<EventType, ParameterType>
             where EventType : UnityEngine.Events.UnityEvent<ParameterType>
         {
             listeners.AddRange(GameObject.FindObjectsOfType<ListenerType>()

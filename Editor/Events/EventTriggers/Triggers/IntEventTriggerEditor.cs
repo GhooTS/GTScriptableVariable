@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GTVariable.Editor
 {
     [CustomEditor(typeof(IntEventTrigger))]
-    public class IntEventTriggerEditor : EventTriggerEditor<IntGameEvent, IntListener, IntEvent, int>
+    public class IntEventTriggerEditor : EventTriggerEditor<IntGameEvent, IntEvent, int>
     {
 
     }

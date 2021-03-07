@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GTVariable
 {
-    public class BoolCollisionEventTrigger : CollisionEventTrigger<BoolGameEvent, BoolListener, BoolEvent, bool>
+    public class BoolCollisionEventTrigger : CollisionEventTrigger<BoolGameEvent, BoolEvent, bool>
     {
 
     }

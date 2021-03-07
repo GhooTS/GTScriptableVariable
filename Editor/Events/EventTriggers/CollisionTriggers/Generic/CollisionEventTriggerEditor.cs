@@ -7,9 +7,8 @@ namespace GTVariable.Editor
     /// <summary>
     /// Derive from this class to create editor for one argument collision event trigger
     /// </summary>
-    public class CollisionEventTriggerEditor<GameEventType, ListenerType, EventType, ParameterType> : CollisionEventTriggerEditor
-        where GameEventType : GameEvent<Listener<GameEventType, EventType, ParameterType>, EventType, ParameterType>
-        where ListenerType : Listener<GameEventType, EventType, ParameterType>
+    public class CollisionEventTriggerEditor<GameEventType, EventType, ParameterType> : CollisionEventTriggerEditor
+        where GameEventType : GameEvent<EventType, ParameterType>
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
     {
 

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GTVariable
 {
-    public class IntEventTrigger : EventTrigger<IntGameEvent, IntListener, IntEvent, int>
+    public class IntEventTrigger : EventTrigger<IntGameEvent, IntEvent, int>
     {
 
     }

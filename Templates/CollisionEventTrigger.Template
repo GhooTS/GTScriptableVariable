@@ -3,7 +3,7 @@
 
 namespace GTVariable
 {
-    public class *className*CollisionEventTrigger : CollisionEventTrigger<*className*GameEvent, *className*Listener, *className*Event, *typeName*>
+    public class *className*CollisionEventTrigger : CollisionEventTrigger<*className*GameEvent, *className*Event, *typeName*>
     {
 
     }

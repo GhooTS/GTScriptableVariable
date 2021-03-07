@@ -6,7 +6,7 @@ namespace GTVariable.Editor
 {
     [UnityEditor.CustomEditor(typeof(BoolGameEvent))]
     public class BoolGameEventEditor 
-        : GameEventEditor<BoolListener, BoolGameEvent, BoolEvent, bool>
+        : GameEventEditor<BoolGameEvent, BoolEvent, bool>
     {
         public override void DrawParameter()
         {

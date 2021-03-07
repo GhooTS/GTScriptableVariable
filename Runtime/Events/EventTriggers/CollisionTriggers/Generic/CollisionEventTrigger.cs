@@ -7,9 +7,8 @@ namespace GTVariable
     /// <summary>
     /// Derive from this class to create collision event trigger for one argument game event
     /// </summary>
-    public class CollisionEventTrigger<GameEventType, ListenerType, EventType, ParameterType> : CollisionEventTriggerBase
-        where GameEventType : GameEvent<Listener<GameEventType, EventType, ParameterType>, EventType, ParameterType>
-        where ListenerType : Listener<GameEventType, EventType, ParameterType>
+    public class CollisionEventTrigger<GameEventType, EventType, ParameterType> : CollisionEventTriggerBase
+        where GameEventType : GameEvent< EventType, ParameterType>
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
     {
         [System.Serializable]

@@ -31,7 +31,7 @@ namespace GTVariable
         {
             foreach (var gameEvent in gameEvents)
             {
-                gameEvent.RegisterListener(this);
+                gameEvent.OnEventRaised += OnEventRised;
             }
 
         }
@@ -40,7 +40,7 @@ namespace GTVariable
         {
             foreach (var gameEvent in gameEvents)
             {
-                gameEvent.UnRegisterListener(this);
+                gameEvent.OnEventRaised -= OnEventRised;
             }
         }
 

@@ -11,7 +11,7 @@ namespace GTVariable
     /// </summary>
     public abstract class Listener<GameEventType, EventType, ParameterType> : Listener, IListener<EventType, ParameterType>
         where EventType : UnityEngine.Events.UnityEvent<ParameterType>
-        where GameEventType : GameEvent<Listener<GameEventType, EventType, ParameterType>, EventType, ParameterType>
+        where GameEventType : GameEvent<EventType, ParameterType>
     {
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace GTVariable
         {
             foreach (var gameEvent in gameEvents)
             {
-                gameEvent.RegisterListener(this);
+                gameEvent.OnEventRaisedWithParameter += OnEventRised;
             }
 
         }
@@ -37,7 +37,7 @@ namespace GTVariable
         {
             foreach (var gameEvent in gameEvents)
             {
-                gameEvent.UnRegisterListener(this);
+                gameEvent.OnEventRaisedWithParameter -= OnEventRised;
             }
         }
 

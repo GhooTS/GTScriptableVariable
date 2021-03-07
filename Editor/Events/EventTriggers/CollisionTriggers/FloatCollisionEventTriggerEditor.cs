@@ -3,7 +3,7 @@
 namespace GTVariable.Editor
 {
     [CustomEditor(typeof(FloatCollisionEventTrigger))]
-    public class FloatCollisionEventTriggerEditor : CollisionEventTriggerEditor<FloatGameEvent, FloatListener, FloatEvent, float>
+    public class FloatCollisionEventTriggerEditor : CollisionEventTriggerEditor<FloatGameEvent, FloatEvent, float>
     {
 
     }

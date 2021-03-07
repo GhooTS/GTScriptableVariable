@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GTVariable
 {
-    public class StringCollisionEventTrigger : CollisionEventTrigger<StringGameEvent, StringListener, StringEvent, string>
+    public class StringCollisionEventTrigger : CollisionEventTrigger<StringGameEvent, StringEvent, string>
     {
 
     }

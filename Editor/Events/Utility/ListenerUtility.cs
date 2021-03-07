@@ -65,7 +65,7 @@ namespace GTVariable.Editor
         /// <returns>returns false if one of the <seealso cref="Listener{GameEventType, EventType, ParameterType}.response"/> missing target or method</returns>
         public static bool IsListenerValid<ListenerType,EventType,ParameterType,GameEventType>(ListenerType listener)
             where ListenerType : Listener<GameEventType,EventType,ParameterType>
-            where GameEventType : GameEvent<Listener<GameEventType, EventType, ParameterType>, EventType,ParameterType>
+            where GameEventType : GameEvent<EventType,ParameterType>
             where EventType : UnityEngine.Events.UnityEvent<ParameterType>
         {
             for (int i = 0; i < listener.response.GetPersistentEventCount(); i++)
