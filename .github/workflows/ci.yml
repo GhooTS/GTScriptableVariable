@@ -10,7 +10,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Pull modules
-      run: npx -p @semantic-release/changelog -p @semantic-release/git -p semantic-release semantic-release
+      run: npx -p @semantic-release/changelog -p @semantic-release/git
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Release
