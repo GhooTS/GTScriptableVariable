@@ -1,4 +1,11 @@
-# 1.0.0 (2021-03-18)
+# [1.0.0-alpha.2](https://github.com/GhooTS/GTScriptableVariable/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2021-03-18)
+
+
+### Bug Fixes
+
+* generate .meta file for Chanagelog ([e974599](https://github.com/GhooTS/GTScriptableVariable/commit/e9745997ff43919dc5647d6402a2533a978f8a5e))
+
+# 1.0.0-alpha.1 (2021-03-18)
 
 
 ### Bug Fixes
