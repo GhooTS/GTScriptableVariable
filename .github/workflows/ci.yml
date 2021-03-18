@@ -9,6 +9,10 @@ jobs:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
+    - name: Install Plugins
+      run: npm install @semantic-release/git @semantic-release/changelog -D
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Release
       run: npx semantic-release
       env:
