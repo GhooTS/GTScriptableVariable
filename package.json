@@ -1,11 +1,15 @@
 {
     "name": "com.biernat-krzysztof.gt-variable",
     "displayName": "GTVariable",
-    "version": "1.0.0",
+    "version": "1.0.0-alpha.1",
     "unity": "2019.3",
     "description": "This repository is based on Ryan Hipple Talk about Game Architecture with Scriptable Objects and containe collection of wrappers that can help you manage dependancies between systems/components. Make sure to be familiar with concept of scriptable objects, because they are the core of this package.",
     "keywords": [
         "Data Container"
     ],
-    "category": "Data Containers"
+    "category": "Data Containers",
+    "devDependencies": {
+        "@semantic-release/changelog": "^5.0.1",
+        "@semantic-release/git": "^9.0.0"
+    }
 }
