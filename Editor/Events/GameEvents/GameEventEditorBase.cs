@@ -22,6 +22,7 @@ namespace GTVariable.Editor
 
         private const string showPerPageKey = "GameEventEditor_SHOWPERPAGE";
         private const string responseVisableKey = "GameEventEditor_RESPONSEVISABLE";
+        private Delegate[] invocationList = new Delegate[0];
 
 
         private void OnEnable()
@@ -69,8 +70,10 @@ namespace GTVariable.Editor
             if (Application.isPlaying) DrawParameter();
 
             EditorGUILayout.EndHorizontal();
+            invocationList = gameEvent.OnEventRaised?.GetInvocationList();
+            var invokationListCount = invocationList == null ? 0 : invocationList.Length;
             showPerPage = EditorGUILayout.IntSlider("Show Per Page", showPerPage, 1, 50);
-            page = EditorGUILayout.IntSlider("Page", page, 0, Mathf.Max(0, (listeners.Count - 1) / showPerPage));
+            page = EditorGUILayout.IntSlider("Page", page, 0, Mathf.Max(0, (listeners.Count + invokationListCount - 2) / showPerPage));
             responseVisable = EditorGUILayout.Toggle("Always show response", responseVisable);
         }
 
@@ -92,6 +95,36 @@ namespace GTVariable.Editor
 
                 DrawSubscriber(index);
             }
+
+            if(invocationList != null)
+            {
+                for (int i = 0; i < showPerPage; i++)
+                {
+                    int index = showPerPage * page + i + listeners.Count;
+
+                    if (index < 0 || index >= invocationList.Length) break;
+
+                    EditorGUILayout.BeginHorizontal();
+                    GUILayout.Box("", EditorStyles.helpBox, GUILayout.Width(5f), GUILayout.MinHeight(EditorGUIUtility.singleLineHeight * 2 + EditorGUIUtility.standardVerticalSpacing));
+                    EditorGUILayout.BeginVertical();
+                    if (invocationList[index].Target is UnityEngine.Object)
+                    {
+                        EditorGUI.BeginDisabledGroup(true);
+                        EditorGUILayout.ObjectField("Target",invocationList[index].Target as UnityEngine.Object, invocationList[index].Target.GetType(), true);
+                        EditorGUI.EndDisabledGroup();
+                    }
+                    else
+                    {
+                        EditorGUILayout.LabelField("Target", invocationList[index].Target.ToString());
+                    }
+                    EditorGUILayout.LabelField("Method", invocationList[index].Method.Name);
+                    EditorGUILayout.EndVertical();
+                    EditorGUILayout.EndHorizontal();
+
+                    EditorGUILayout.Space();
+                }
+            }
+
             EditorGUILayout.EndScrollView();
 
         }

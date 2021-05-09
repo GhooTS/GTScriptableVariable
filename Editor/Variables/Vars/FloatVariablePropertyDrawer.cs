@@ -4,7 +4,7 @@
 namespace GTVariable.Editor
 {
     [CustomPropertyDrawer(typeof(FloatVariable))]
-    public class FloatVariablePropertyDrawer : VariablePropertyDrawer
+    public class FloatVariablePropertyDrawer : VariablePropertyDrawer<FloatVariable,float>
     {
 
     }

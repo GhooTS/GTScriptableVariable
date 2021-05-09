@@ -45,7 +45,7 @@ namespace GTVariable
         }
 
         /// <summary>
-        /// Use this method over <seealso cref="Value"/> property to raise <seealso cref="Variable{T}.onValueChanaged"/> event for variable
+        /// Use this method over <seealso cref="Value"/> property to raise <seealso cref="Variable{T}.onValueChanged"/> event for variable
         /// </summary>
         /// <param name="value"></param>
         public void SetValue(T value)

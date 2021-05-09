@@ -8,7 +8,8 @@ namespace GTVariable.Editor
     /// <summary>
     /// Derive from this class to create custom variable property drawer
     /// </summary>
-    public class VariablePropertyDrawer : PropertyDrawer
+    public class VariablePropertyDrawer<VariableType,ParameterType> : PropertyDrawer
+        where VariableType : Variable<ParameterType>
     {
         protected VariableInlineDrawer inlineDrawer = new VariableInlineDrawer();
 
@@ -27,7 +28,12 @@ namespace GTVariable.Editor
             Rect inlinePosition = inlineDrawer.Reserve(ref position);
             label.text = labelText;
             EditorGUI.ObjectField(position, property, label);
+            EditorGUI.BeginChangeCheck();
             inlineDrawer.DrawProperty(property,inlinePosition);
+            if (EditorGUI.EndChangeCheck() && Application.isPlaying)
+            {
+                (property.objectReferenceValue as VariableType).OnValueChanged?.Invoke();
+            }
         }
     }
 }

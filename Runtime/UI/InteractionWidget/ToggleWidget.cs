@@ -20,13 +20,13 @@ namespace GTVariable
         private void OnEnable()
         {
             toggle.isOn = value;
-            value.OnValueChanaged.AddListener(OnVariableValueChanaged);
+            value.OnValueChanged.AddListener(OnVariableValueChanaged);
             toggle.onValueChanged.AddListener(OnToggleValueChanaged);
         }
 
         private void OnDisable()
         {
-            value.OnValueChanaged.RemoveListener(OnVariableValueChanaged);
+            value.OnValueChanged.RemoveListener(OnVariableValueChanaged);
             toggle.onValueChanged.RemoveListener(OnToggleValueChanaged);
         }
 

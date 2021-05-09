@@ -11,16 +11,26 @@ namespace GTVariable
     {
         [SerializeField]
         private VariableType variable;
-        public UnityEvent OnValueChanaged => variable.OnValueChanaged;
+        public UnityEvent OnValueChanged => variable.OnValueChanged;
 
         public ReadOnlyVariable(VariableType variable)
         {
             this.variable = variable;
         }
 
+        public void SetVariable(VariableType variable)
+        {
+            this.variable = variable;
+        }
+
         public ParameterType GetValue()
         {
-            return variable.GetValue();
+            return variable == null ? default : variable.GetValue();
+        }
+
+        public bool HasVariable()
+        {
+            return variable != null;
         }
     }
 }

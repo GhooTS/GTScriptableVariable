@@ -4,7 +4,7 @@ using UnityEditor;
 namespace GTVariable.Editor
 {
     [CustomPropertyDrawer(typeof(*className*Variable))]
-    public class *className*VariablePropertyDrawer : VariablePropertyDrawer
+    public class *className*VariablePropertyDrawer : VariablePropertyDrawer<*className*Variable,*typeName*>
     {
 
     }

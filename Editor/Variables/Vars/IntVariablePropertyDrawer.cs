@@ -4,7 +4,7 @@
 namespace GTVariable.Editor
 {
     [CustomPropertyDrawer(typeof(IntVariable))]
-    public class IntVariablePropertyDrawer : VariablePropertyDrawer
+    public class IntVariablePropertyDrawer : VariablePropertyDrawer<IntVariable,int>
     {
 
     }

@@ -4,7 +4,7 @@ namespace GTVariable.Editor
 {
 
     [CustomPropertyDrawer(typeof(BoolVariable))]
-    public class BoolVariablePropertyDrawer : VariablePropertyDrawer
+    public class BoolVariablePropertyDrawer : VariablePropertyDrawer<BoolVariable,bool>
     {
 
     }
