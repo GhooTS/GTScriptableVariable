@@ -1,6 +1,5 @@
 ﻿namespace GTVariable
 {
-    [UnityEngine.CreateAssetMenu(menuName = "ScriptableVars/Vars/Int")]
     public class IntVariable : Variable<int>
     {
         public void Increament()

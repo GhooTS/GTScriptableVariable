@@ -2,7 +2,7 @@
 
 namespace GTVariable
 {
-    [CreateAssetMenu(menuName = "ScriptableVars/Vars/Bool")]
+    [CreateAssetMenu(menuName = "s")]
     public class BoolVariable : Variable<bool>
     {
 

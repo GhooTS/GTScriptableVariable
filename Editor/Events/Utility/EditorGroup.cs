@@ -19,7 +19,7 @@ namespace GTVariable.Editor
 
 
         protected readonly ComponentEnabledGruopController<T> enabledGruop = new ComponentEnabledGruopController<T>();
-        protected readonly ComponenetCreator<T> componenetCreator = new ComponenetCreator<T>();
+        protected readonly ComponenetCreator componenetCreator = new ComponenetCreator();
         protected readonly static List<EditorGroupElement<T>> elements = new List<EditorGroupElement<T>>();
         private static bool allComponentsAttached = true;
         private static bool firstComponentEnabled = false;
@@ -55,7 +55,7 @@ namespace GTVariable.Editor
             {
                 GameObject = TargetComponent.gameObject;
                 AttachComponents();
-                componenetCreator.UpdateComponentsTypesList();
+                componenetCreator.UpdateComponentsTypesList<T>();
             }
         }
 

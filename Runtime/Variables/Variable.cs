@@ -14,12 +14,22 @@ namespace GTVariable
         /// Value of this variable
         /// </summary>
         public T value;
+        public T defaultValue;
+        public bool resetOnEnabled;
 
         [SerializeField]
-        private UnityEvent onValueChanaged;
+        private UnityEvent onValueChanged = new UnityEvent();
 
-        public UnityEvent OnValueChanaged => onValueChanaged;
+        public UnityEvent OnValueChanged => onValueChanged;
 
+
+        protected virtual void OnEnable()
+        {
+            if (resetOnEnabled)
+            {
+                value = defaultValue;
+            }
+        }
 
         /// <summary>
         /// Get value of this variable
@@ -37,7 +47,7 @@ namespace GTVariable
         {
             this.value = value;
 
-            onValueChanaged?.Invoke();
+            onValueChanged?.Invoke();
         }
 
         public static implicit operator T(Variable<T> genericVariable)

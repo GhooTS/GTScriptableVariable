@@ -4,30 +4,36 @@ using UnityEngine;
 namespace GTVariable
 {
     public class TextWidget<ReadOnlyVariableType,VariableType, ParameterType> : MonoBehaviour
-        where ReadOnlyVariableType : ReadOnlyVariable<VariableType,ParameterType>
         where VariableType : Variable<ParameterType>
     {
+        [Header("Display options")]
         [Tooltip("Text that will appear before variable value")]
         public string prefix;
         [Tooltip("Text that will appear after variable value")]
         public string affix;
-        public ReadOnlyVariableType value;
+        public VariableType value;
         public TextMeshProUGUI textControl;
+        [Header("Update options")]
         [Tooltip("If tick, text control will be update on enable")]
         public bool updateOnEnable;
         [Tooltip("In which mode widget should operated")]
         [SerializeField]
         private UpdateMode updateMode = UpdateMode.Event;
+        [Header("Variable Loading Options")]
+        public string variableName;
+        public bool createVariable;
 
         protected virtual void OnEnable()
         {
+            if(value == null) WidgetVariableHelper.CreateVariableIfNeeded(value,variableName,createVariable);
+
             if (updateOnEnable)
             {
                 UpdateValue();
             }
             if (updateMode == UpdateMode.Event)
             {
-                value?.OnValueChanaged.AddListener(UpdateValue);
+                value?.OnValueChanged.AddListener(UpdateValue);
             }
         }
 
@@ -35,7 +41,7 @@ namespace GTVariable
         {
             if (updateMode == UpdateMode.Event)
             {
-                value?.OnValueChanaged.RemoveListener(UpdateValue);
+                value?.OnValueChanged.RemoveListener(UpdateValue);
             }
         }
 
@@ -49,6 +55,8 @@ namespace GTVariable
 
         public void UpdateValue()
         {
+            if (value == null) return;
+
             string str = "";
 
             if (prefix.Length != 0)

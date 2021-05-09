@@ -8,14 +8,22 @@ namespace GTVariable
 
     public class BarWidget : MonoBehaviour
     {
-        [SerializeField] private ReadOnlyFloatVariable currentValue;
-        [SerializeField] private ReadOnlyFloatVariable maxValue;
+        [SerializeField] private FloatVariable currentValue;
+        [SerializeField] private FloatVariable maxValue;
         [SerializeField] private Image fillBar;
         [SerializeField] private UpdateMode updateMode = UpdateMode.Event;
         [SerializeField] private bool UpdateOnEnable;
+        [Header("Variable Loading Options")]
+        [SerializeField] private bool createCurrentValue;
+        [SerializeField] private string currentValueName;
+        [SerializeField] private bool createMaxValue;
+        [SerializeField] private string maxValueName;
 
         private void OnEnable()
         {
+            if (currentValue == null) WidgetVariableHelper.CreateVariableIfNeeded(currentValue, currentValueName, createCurrentValue);
+            if (currentValue == null) WidgetVariableHelper.CreateVariableIfNeeded(maxValue, maxValueName, createMaxValue);
+
             if (UpdateOnEnable)
             {
                 UpdateWidget();
@@ -23,8 +31,8 @@ namespace GTVariable
 
             if(updateMode == UpdateMode.Event)
             {
-                currentValue.OnValueChanaged.AddListener(UpdateWidget);
-                maxValue.OnValueChanaged.AddListener(UpdateWidget);
+                if (currentValue != null) currentValue.OnValueChanged.AddListener(UpdateWidget);
+                if (maxValue != null) maxValue.OnValueChanged.AddListener(UpdateWidget);
             }
         }
 
@@ -32,8 +40,8 @@ namespace GTVariable
         {
             if (updateMode == UpdateMode.Event)
             {
-                currentValue.OnValueChanaged.RemoveListener(UpdateWidget);
-                maxValue.OnValueChanaged.RemoveListener(UpdateWidget);
+                if (currentValue != null) currentValue.OnValueChanged.RemoveListener(UpdateWidget);
+                if (maxValue != null) maxValue.OnValueChanged.RemoveListener(UpdateWidget);
             }
         }
 
@@ -45,8 +53,12 @@ namespace GTVariable
             }
         }
 
+
+
         public void UpdateWidget()
         {
+            if (currentValue != null || maxValue == null) return;
+
             fillBar.fillAmount = currentValue.GetValue() / maxValue.GetValue();
         }
     }

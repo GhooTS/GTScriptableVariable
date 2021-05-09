@@ -21,13 +21,13 @@ namespace GTVariable
         private void OnEnable()
         {
             slider.value = value;
-            value.OnValueChanaged.AddListener(OnVariableValueChanaged);
+            value.OnValueChanged.AddListener(OnVariableValueChanaged);
             slider.onValueChanged.AddListener(OnSliderValueChanaged);
         }
 
         private void OnDisable()
         {
-            value.OnValueChanaged.RemoveListener(OnVariableValueChanaged);
+            value.OnValueChanged.RemoveListener(OnVariableValueChanaged);
             slider.onValueChanged.RemoveListener(OnSliderValueChanaged);
         }
 

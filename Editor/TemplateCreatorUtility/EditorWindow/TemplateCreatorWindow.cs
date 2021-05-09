@@ -42,7 +42,7 @@ namespace GTVariable.Editor.Utility
         new VariableCreator()
         };
 
-        [MenuItem("Tools/Class Creator")]
+        [MenuItem("Tools/GT/Class Creator")]
         public static void Init() 
         {
             var window = GetWindow<TemplateCreatorWindow>("Class Creator");

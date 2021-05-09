@@ -13,20 +13,26 @@ namespace GTVariable.Editor
 
     }
 
-    public class ComponenetCreator<T>
-        where T : MonoBehaviour
+    public class ComponenetCreator
     {
-        private List<Type> componentTypes;
+        private List<Type> types;
 
 
 
-        public void UpdateComponentsTypesList()
+        public void UpdateComponentsTypesList<T>()
         {
-            var baseType = typeof(T);
-            componentTypes = AppDomain.CurrentDomain.GetAssemblies()
+            UpdateComponentsTypesList(typeof(T));
+        }
+
+        public void UpdateComponentsTypesList(Type baseType)
+        {
+            types?.Clear();
+            if (baseType == null) return;
+
+            types = AppDomain.CurrentDomain.GetAssemblies()
                                                     .SelectMany((assembly) => assembly.GetTypes())
-                                                    .Where((type) => baseType.IsAssignableFrom(type) 
-                                                                  && type.IsAbstract == false 
+                                                    .Where((type) => baseType.IsAssignableFrom(type)
+                                                                  && type.IsAbstract == false
                                                                   && type.IsGenericType == false
                                                                   && type.IsClass)
                                                     .ToList();
@@ -37,12 +43,26 @@ namespace GTVariable.Editor
         {
             var menu = new GenericMenu();
 
-            foreach (var type in componentTypes)
+            foreach (var type in types)
             {
                 menu.AddItem(new GUIContent(type.Name), false,AddComponent,new TypeTargetPair { Target = target, Type = type });
             }
 
             menu.DropDown(position);
+        }
+
+        public void ShowObjectMenu(GenericMenu.MenuFunction2 onTypeSelected)
+        {
+            if (types == null) return;
+
+            var menu = new GenericMenu();
+
+            foreach (var type in types)
+            {
+                menu.AddItem(new GUIContent(type.Name), false, onTypeSelected, type);
+            }
+
+            menu.ShowAsContext();
         }
 
 
@@ -52,8 +72,6 @@ namespace GTVariable.Editor
             Undo.AddComponent(typeTargetPair.Target, typeTargetPair.Type);
         }
 
-
-        
     }
 }
 
