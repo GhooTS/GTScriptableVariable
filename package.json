@@ -1,7 +1,7 @@
 {
     "name": "com.biernat-krzysztof.gt-variable",
     "displayName": "GTVariable",
-    "version": "1.0.0-preview.1",
+    "version": "1.0.0-preview.2",
     "unity": "2019.3",
     "description": "This repository is based on Ryan Hipple Talk about Game Architecture with Scriptable Objects and containe collection of wrappers that can help you manage dependancies between systems/components. Make sure to be familiar with concept of scriptable objects, because they are the core of this package.",
     "keywords": [
