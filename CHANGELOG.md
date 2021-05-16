@@ -1,3 +1,10 @@
+# [1.0.0-preview.3](https://github.com/GhooTS/GTScriptableVariable/compare/v1.0.0-preview.2...v1.0.0-preview.3) (2021-05-16)
+
+
+### Features
+
+* Add Channels to Database/Imporve Editor UI ([6a376a2](https://github.com/GhooTS/GTScriptableVariable/commit/6a376a2c8bea597ccdb2d9e0ce40177da76b3a90))
+
 # [1.0.0-preview.2](https://github.com/GhooTS/GTScriptableVariable/compare/v1.0.0-preview.1...v1.0.0-preview.2) (2021-05-09)
 
 
