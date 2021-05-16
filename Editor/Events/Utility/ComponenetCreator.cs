@@ -65,6 +65,14 @@ namespace GTVariable.Editor
             menu.ShowAsContext();
         }
 
+        public void AddToMenu(GenericMenu menu,string path, GenericMenu.MenuFunction2 onTypeSelected)
+        {
+            foreach (var type in types)
+            {
+                menu.AddItem(new GUIContent($"{path}{type.Name}"), false, onTypeSelected, type);
+            }
+        }
+
 
         private void AddComponent(object boxedComponentAndTarget)
         {

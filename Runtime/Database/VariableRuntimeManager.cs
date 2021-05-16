@@ -14,7 +14,10 @@ namespace GTVariable
         {
             get
             {
-                Assert.AreNotEqual(null, _current, "Instance of Variable Runtime Manager is not present in scene!");
+                if(_current == null)
+                {
+                    _current = FindObjectOfType<VariableRuntimeManager>();
+                }
                 return _current;
             }
         }
@@ -35,29 +38,38 @@ namespace GTVariable
             database.Init();
         }
 
-        public bool TryGetVariableByName<T>(string name, out T variable)
+        public bool TryGetVariableByName<T>(string name, out T variable,string channelName = "")
             where T : VariableBase
         {
-            return database.TryGetVariableByName<T>(name, out variable);
+            return database.TryGetVariableByName(name, out variable, channelName);
         }
 
-        public bool TryGetGameEventByName<T>(string name, out T variable)
+        public bool TryGetGameEventByName<T>(string name, out T variable, string channelName = "")
             where T : GameEventBase
         {
-            return database.TryGetGameEventByName(name, out variable);
+            return database.TryGetGameEventByName(name, out variable, channelName);
         }
 
-
-        public T GetOrCreateVariable<T>(string name)
+        public T GetOrCreateVariable<T>(string name,string channelName = "")
             where T : VariableBase
         {
-            return database.GetOrCreateVariable<T>(name);
+            return database.GetOrCreateVariable<T>(name, channelName);
         }
 
-        public T GetOrCreateGameEvent<T>(string name)
+        public T GetOrCreateGameEvent<T>(string name, string channelName = "")
             where T : GameEventBase
         {
-            return database.GetOrCreateGameEvent<T>(name);
+            return database.GetOrCreateGameEvent<T>(name,channelName);
+        }
+
+        public bool TryGetChannel(string name,out Channel channel)
+        {
+            return database.TryGetChannel(name,out channel);
+        }
+
+        public Channel GetOrCreateChannel(string name)
+        {
+            return database.GetOrCreateChannel(name);
         }
 
     }

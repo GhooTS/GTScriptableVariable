@@ -7,6 +7,17 @@ using System.Collections.Generic;
 
 namespace GTVariable.Editor
 { 
+    public class ChannelToTexture
+    {
+        public string ChannelName;
+        public Texture2D texture;
+    }
+
+    public class ChannelToTextureProvider : ScriptableObject
+    {
+        public List<ChannelToTexture> channelsTexture = new List<ChannelToTexture>();
+    }
+
     public static class GameEventGUI
     {
 

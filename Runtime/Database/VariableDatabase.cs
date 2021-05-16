@@ -8,22 +8,14 @@ namespace GTVariable
     [CreateAssetMenu(menuName = "GTVariable/Database")]
     public class VariableDatabase : ScriptableObject
     {
-        [SerializeField] private List<VariableBase> persistentVariables = new List<VariableBase>();
-        public List<VariableBase> PersistentVariables { get { return persistentVariables; } }
-        private readonly List<VariableBase> runtimeVariables = new List<VariableBase>();
-        [SerializeField] private List<GameEventBase> persistentGameEvents = new List<GameEventBase>();
-        public List<GameEventBase> PersistentGameEvents { get { return persistentGameEvents; } }
-        private readonly List<GameEventBase> runtimeGameEvents = new List<GameEventBase>();
+        [SerializeField] private Channel defaultChannel = new Channel() 
+        {
+            Name = "Default Channel"
+        };
+        [SerializeField] private List<Channel> channels = new List<Channel>();
+        private Dictionary<string, Channel> channelMap = new Dictionary<string, Channel>();
 
-        private readonly Dictionary<string, VariableBase> allVariables = new Dictionary<string, VariableBase>();
-        private readonly Dictionary<string, GameEventBase> allGameEvents = new Dictionary<string, GameEventBase>();
-
-        [SerializeField] private List<string> groups = new List<string>();
-
-        [Header("Options")]
-        public bool addTypeNameToKey = true;
-
-        private bool init = false;
+        [NonSerialized] private bool init = false;
 
 
         private void OnDisable()
@@ -35,170 +27,149 @@ namespace GTVariable
         {
             if (init) return;
 
-            runtimeGameEvents.Clear();
-            runtimeVariables.Clear();
+            defaultChannel.InitChannel();
 
-            allGameEvents.Clear();
-            allVariables.Clear();
-
-            foreach (var variable in persistentVariables)
+            foreach (var channel in channels)
             {
-                AddVariable(variable);
-            }
-
-            foreach (var gameEvent in persistentGameEvents)
-            {
-                AddGameEvent(gameEvent);
+                if (channelMap.ContainsKey(channel.Name) == false)
+                {
+                    channel.InitChannel();
+                    channelMap.Add(channel.Name, channel);
+                }
+                else
+                {
+                    Debug.LogWarning($"Channel with name {channel.Name} already exist!");
+                }
             }
 
             init = true;
         }
 
-        private bool AddVariable(VariableBase variable)
-        {
-            var key = GetKey(variable.name, variable.GetType());
 
-            if (allVariables.ContainsKey(key) == false)
+        public bool RemoveVariable(VariableBase variable, string channelName = "")
+        {
+            return TryGetChannel(channelName, out Channel channel) && channel.RemoveVariable(variable);
+        }
+
+        public bool RemoveGameEvent(GameEvent gameEvent,string channelName = "")
+        {
+            return TryGetChannel(channelName, out Channel channel) && channel.RemoveGameEvent(gameEvent);
+        }
+
+        public bool RemoveChannel(Channel channel)
+        {
+            if (channel != null
+                && channels.Contains(channel) == false
+                && channelMap.TryGetValue(channel.Name, out Channel source)
+                && source == channel)
             {
-                allVariables.Add(key, variable);
-                return true;
+                channel.DestroyNotPersistendObjects();
+                var result = channel.IsChannelEmpty();
+
+                if (result)
+                {
+                    channels.Remove(channel);
+                    channelMap.Remove(channel.Name);
+                }
+
+                return result;
+            }
+
+            return false;
+        }
+
+        public bool TryGetVariableByName<T>(string name, out T variable,string channelName = "")
+            where T : VariableBase
+        {
+            Init();
+
+            variable = null;
+            return TryGetChannel(channelName, out Channel channel) && channel.TryGetVariableByName<T>(name, out variable);
+        }
+
+        public bool TryGetGameEventByName<T>(string name, out T gameEvent,string channelName = "")
+            where T : GameEventBase
+        {
+            Init();
+
+            gameEvent = null;
+            return TryGetChannel(channelName, out Channel channel) && channel.TryGetGameEventByName<T>(name,out gameEvent);
+        }
+
+        public bool TryGetChannel(string name, out Channel channel)
+        {
+            Init();
+
+            return channelMap.TryGetValue(name,out channel);
+        }
+
+
+        public T GetOrCreateVariable<T>(string name,string channelName = "")
+            where T : VariableBase
+        {
+            Init();
+
+            return TryGetChannel(channelName, out Channel channel) ? channel.GetOrCreateVariable<T>(name) : defaultChannel.GetOrCreateVariable<T>(name);
+        }
+
+        public T GetOrCreateGameEvent<T>(string name,string channelName = "")
+            where T : GameEventBase
+        {
+            Init();
+
+            return TryGetChannel(channelName,out Channel channel) ? channel.GetOrCreateGameEvent<T>(name) : defaultChannel.GetOrCreateGameEvent<T>(name);
+        }
+
+        public Channel GetOrCreateChannel(string name)
+        {
+            Init();
+
+            if (TryGetChannel(name,out Channel channel))
+            {
+                return channel;
             }
             else
             {
-                Debug.LogWarning($"Variable with key {key} already exist");
+                channel = new Channel();
+                channel.Name = name;
+                channelMap.Add(channel.Name, channel);
+                return channel;
+            }
+        }
+
+        public bool ContaineVariable(string name)
+        {
+            Init();
+
+            if (defaultChannel.ContaineVariable(name)) return true;
+
+            foreach (var channel in channels)
+            {
+                if (channel.ContaineVariable(name)) return true;
             }
 
             return false;
         }
 
-        private bool AddGameEvent(GameEventBase gameEvent)
+        public bool ContaineGameEvent(string name)
         {
-            var key = GetKey(gameEvent.name, gameEvent.GetType());
+            Init();
 
-            if (allGameEvents.ContainsKey(key) == false)
+            if (defaultChannel.ContaineGameEvent(name)) return true;
+
+            foreach (var channel in channels)
             {
-                allGameEvents.Add(key, gameEvent);
-                return true;
-            }
-            else
-            {
-                Debug.LogWarning($"Game event with key {key} already exist");
+                if (channel.ContaineGameEvent(name)) return true;
             }
 
             return false;
         }
 
-
-        public bool RemoveVariable(VariableBase variable)
+        public bool ContaineChannel(Channel channel)
         {
-            if (runtimeVariables.Remove(variable))
-            {
-                allVariables.Remove(GetKey(variable.name, variable.GetType()));
-                return true;
-            }
+            Init();
 
-            return false;
-        }
-
-        public bool RemoveGameEvent(GameEvent gameEvent)
-        {
-            if (runtimeGameEvents.Remove(gameEvent))
-            {
-                allGameEvents.Remove(GetKey(gameEvent.name, gameEvent.GetType()));
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool TryGetVariableByName<T>(string name,out T variable)
-            where T : VariableBase
-        {
-            if(allVariables.TryGetValue(GetKey<T>(name), out VariableBase _variable) && _variable is T)
-            {
-                variable = _variable as T;
-                return true;
-            }
-
-            variable = null;
-            return false;
-        }
-
-        public bool TryGetGameEventByName<T>(string name, out T variable)
-            where T : GameEventBase
-        {
-            if (allGameEvents.TryGetValue(GetKey<T>(name), out GameEventBase _variable) && _variable is T)
-            {
-                variable = _variable as T;
-                return true;
-            }
-
-            variable = null;
-            return false;
-        }
-
-
-        public T GetOrCreateVariable<T>(string name)
-            where T : VariableBase
-        {
-            if (Application.isPlaying)
-            {
-                var key = GetKey<T>(name);
-
-                if (allVariables.TryGetValue(key,out VariableBase variable))
-                {
-                    return variable as T;
-                }
-
-                variable = ScriptableObject.CreateInstance<T>();
-                variable.name = name;
-                if (AddVariable(variable))
-                {
-                    runtimeVariables.Add(variable);
-                    return variable as T;
-                }
-
-                Destroy(variable);
-            }
-
-            return null;
-        }
-
-        public T GetOrCreateGameEvent<T>(string name)
-            where T : GameEventBase
-        {
-            if (Application.isPlaying)
-            {
-                var key = GetKey<T>(name);
-
-                if (allGameEvents.TryGetValue(key, out GameEventBase gameEvent))
-                {
-                    return gameEvent as T;
-                }
-
-                gameEvent = ScriptableObject.CreateInstance<T>();
-                gameEvent.name = name;
-                if (AddGameEvent(gameEvent))
-                {
-                    runtimeGameEvents.Add(gameEvent);
-                    return gameEvent as T;
-                }
-
-                Destroy(gameEvent);
-            }
-
-            return null;
-        }
-
-
-        private string GetKey<T>(string name)
-        {
-            return addTypeNameToKey ? name + typeof(T).ToString() : name;
-        }
-
-        private string GetKey(string name,Type type)
-        {
-            return addTypeNameToKey ? name + type.ToString() : name;
+            return channelMap.ContainsKey(channel.Name);
         }
     }
 }

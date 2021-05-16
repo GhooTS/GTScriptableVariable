@@ -14,7 +14,7 @@ namespace GTVariable.Editor
             { 
                 if(plusIcon == null)
                 {
-                    plusIcon = new GUIContent(EditorGUIUtility.IconContent("Toolbar Plus"));
+                    plusIcon = new GUIContent(EditorGUIUtility.IconContent("d_Toolbar Plus More"));
                 }
 
                 return plusIcon;
@@ -53,23 +53,25 @@ namespace GTVariable.Editor
 
         public static GUIStyle row = new GUIStyle("Label")
         {
-            padding = new RectOffset(15,0,0,0),
-            margin = new RectOffset(1,0,0,0),
+            padding = new RectOffset(15, 0, 0, 0),
+            margin = new RectOffset(1, 0, 0, 0),
+            alignment = TextAnchor.MiddleLeft,
         };
 
         public static GUIStyle rowSelected = new GUIStyle(row)
         {
             normal = new GUIStyleState()
             {
-                background = EditorGUIUtility.IconContent("selected").image as Texture2D
+                background = EditorGUIUtility.IconContent("selected").image as Texture2D,
+                textColor = Color.white
             }
         };
 
         public static GUIStyle sideBarContent = new GUIStyle("OL box")
         {
             stretchHeight = true,
-            padding = new RectOffset(0, 0, 2, 2),
-            margin = new RectOffset(0, 0, 0, 0),
+            padding = EditorStyles.inspectorDefaultMargins.padding,
+            margin = EditorStyles.inspectorDefaultMargins.margin
         };
 
         public static GUIStyle sideBarHeader = new GUIStyle("OL Title")
@@ -92,9 +94,34 @@ namespace GTVariable.Editor
         public static GUIStyle labelCenter = new GUIStyle("Label")
         {
             alignment = TextAnchor.MiddleCenter,
-            fontStyle = FontStyle.Bold
+            fontStyle = FontStyle.Bold,
+            richText = true
         };
 
+
+        private static Texture2D blueBar, greenBar, yellowBar;
+
+        public static Texture2D GetSideBarItemTexture(SidebarItemType type)
+        {
+            switch (type)
+            {
+                case SidebarItemType.Channel:
+                    return GetResourceTexture(blueBar, "blue.png");
+                case SidebarItemType.Event:
+                    return GetResourceTexture(yellowBar, "yellow.png");
+                case SidebarItemType.Variable:
+                    return GetResourceTexture(greenBar, "green.png");
+                default:
+                    return GetResourceTexture(blueBar, "blue.png");
+            }
+
+        }
+
+        private static Texture2D GetResourceTexture(Texture2D source, string relativePath)
+        {
+            if (source == null) source = AssetDatabase.LoadAssetAtPath<Texture2D>($"{PackagePaths.PackagePath}/Editor/EditorResources/{relativePath}");
+            return source;
+        }
     }
 
 }
